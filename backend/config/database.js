@@ -22,7 +22,7 @@ const pool = mysql.createPool({
 pool
   .getConnection()
   .then((connection) => {
-    console.log("✅ Conectado ao banco de dados MySQL com sucesso!");
+    console.log("✅ Conectado ao banco de dados com sucesso!");
     connection.release();
   })
   .catch((erro) => {

@@ -114,36 +114,52 @@ async function carregarDetalhesServico(id) {
 async function carregarMeusServicos() {
   try {
     const container = document.getElementById("meus-servicos-container");
-    if (!container) return;
+    const loadingDiv = document.getElementById("loading-servicos");
+    const tabelaDiv = document.getElementById("servicos-tabela");
+    const semServicosDiv = document.getElementById("sem-servicos");
+
+    if (!container || !loadingDiv) return;
+
+    // Mostrar loading
+    if (loadingDiv) loadingDiv.style.display = "block";
+    if (tabelaDiv) tabelaDiv.style.display = "none";
+    if (semServicosDiv) semServicosDiv.style.display = "none";
 
     // Exigir autenticação
     if (!exigirAutenticacao()) return;
     if (!exigirPrestador()) return;
 
-    container.innerHTML =
-      '<div class="loading"><div class="spinner-border" role="status"></div></div>';
-
     const resultado = await listarMeusServicos();
 
+    // Ocultar loading
+    if (loadingDiv) loadingDiv.style.display = "none";
+
     if (!resultado.sucesso) {
-      container.innerHTML = `<div class="alert alert-danger">Erro: ${resultado.erro}</div>`;
+      mostrarAviso(`Erro: ${resultado.erro}`, "danger");
       return;
     }
 
     const servicos = resultado.dados;
 
     if (servicos.length === 0) {
-      container.innerHTML = `<div class="alert alert-info">Você não tem serviços cadastrados ainda.</div>`;
+      if (semServicosDiv) semServicosDiv.style.display = "block";
       return;
     }
 
+    // Limpar container e preencher com serviços
     container.innerHTML = "";
     servicos.forEach((servico) => {
       const linha = criarLinhaServicoTabela(servico);
       container.appendChild(linha);
     });
+
+    // Mostrar tabela
+    if (tabelaDiv) tabelaDiv.style.display = "block";
   } catch (erro) {
     console.error("Erro ao carregar meus serviços:", erro);
+    const loadingDiv = document.getElementById("loading-servicos");
+    if (loadingDiv) loadingDiv.style.display = "none";
+    mostrarAviso("Erro ao carregar meus serviços", "danger");
   }
 }
 

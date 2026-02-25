@@ -104,18 +104,11 @@ app.use((erro, req, res, next) => {
 
 app.listen(PORT, () => {
   console.log("");
-  console.log("╔════════════════════════════════════════╗");
-  console.log("║    🏗️  OBRACONNECT REFATORADO 🏗️      ║");
-  console.log("╠════════════════════════════════════════╣");
+  console.log("╔══════════════════════════════════════════════════╗");
+  console.log("║    🏗️  OBRACONNECT🏗️                             ");
+  console.log("╠══════════════════════════════════════════════════╣");
   console.log(`║  Servidor rodando em: http://localhost:${PORT}`);
-  console.log(`║  Ambiente: ${process.env.NODE_ENV || "development"}`);
-  console.log("║  Endpoints:");
-  console.log("║  - POST   /api/auth/registro");
-  console.log("║  - POST   /api/auth/login");
-  console.log("║  - GET    /api/servicos");
-  console.log("║  - POST   /api/servicos (proteged)");
-  console.log("║  - POST   /api/avaliacoes (proteged)");
-  console.log("╚════════════════════════════════════════╝");
+  console.log("╚══════════════════════════════════════════════════╝");
   console.log("");
 });
 

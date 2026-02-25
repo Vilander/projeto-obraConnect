@@ -38,7 +38,24 @@ router.get("/", async (req, res) => {
 });
 
 // ===============================================
-// 2. BUSCAR SERVIÇO POR ID (PÚBLICO)
+// 2. LISTAR MEUS SERVIÇOS (PROTEGIDO) - DEVE VIR ANTES DE /:id
+// ===============================================
+router.get("/meus/servicos", verificarToken, async (req, res) => {
+  try {
+    const [servicos] = await banco.query(
+      "SELECT * FROM oc__tb_servico WHERE id_usuario = ? ORDER BY data_cadastro DESC",
+      [req.usuario.id],
+    );
+
+    res.status(200).json(servicos);
+  } catch (erro) {
+    console.error("Erro ao listar meus serviços:", erro);
+    res.status(500).json({ erro: "Erro ao listar seus serviços." });
+  }
+});
+
+// ===============================================
+// 3. BUSCAR SERVIÇO POR ID (PÚBLICO)
 // ===============================================
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
@@ -62,23 +79,6 @@ router.get("/:id", async (req, res) => {
   } catch (erro) {
     console.error("Erro ao buscar serviço:", erro);
     res.status(500).json({ erro: "Erro ao buscar serviço." });
-  }
-});
-
-// ===============================================
-// 3. LISTAR MEUS SERVIÇOS (PROTEGIDO)
-// ===============================================
-router.get("/meus/servicos", verificarToken, async (req, res) => {
-  try {
-    const [servicos] = await banco.query(
-      "SELECT * FROM oc__tb_servico WHERE id_usuario = ? ORDER BY data_cadastro DESC",
-      [req.usuario.id],
-    );
-
-    res.status(200).json(servicos);
-  } catch (erro) {
-    console.error("Erro ao listar meus serviços:", erro);
-    res.status(500).json({ erro: "Erro ao listar seus serviços." });
   }
 });
 
