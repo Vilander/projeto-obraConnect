@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detalhes do Serviço - ObraConnect</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html">
+          <i class="bi bi-hammer"></i> ObraConnect
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="../index.html">Início</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div id="aviso-container"></div>
+
+    <!-- MAIN -->
+    <main class="container my-section">
+      <div id="loading" class="loading">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Carregando...</span>
+        </div>
+      </div>
+
+      <div id="servico-container" style="display: none">
+        <div class="row">
+          <!-- Imagem e Info Básica -->
+          <div class="col-lg-6 mb-4">
+            <div style="position: relative; width: 100%; height: 400px">
+              <img
+                id="servico-img"
+                src=""
+                alt="Serviço"
+                class="img-fluid rounded shadow"
+                style="width: 100%; height: 400px; object-fit: cover"
+              />
+              <div
+                id="servico-img-fallback"
+                class="card-img-fallback rounded shadow"
+                style="
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 100%;
+                  height: 100%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  background: linear-gradient(135deg, #0b213e 0%, #1a3a6e 100%);
+                  color: white;
+                  font-size: 3rem;
+                  display: none;
+                "
+              >
+                <i class="bi bi-building"></i>
+              </div>
+            </div>
+
+            <div class="mt-4 p-3 bg-light-azul rounded">
+              <h5 class="text-azul mb-3">
+                <i class="bi bi-person-circle"></i> Informações do Prestador
+              </h5>
+              <p class="mb-2"><strong id="prestador-nome">-</strong></p>
+              <p class="mb-2">
+                <i class="bi bi-envelope"></i>
+                <a id="prestador-email" href="mailto:">Email</a>
+              </p>
+              <button id="btn-contato" class="btn btn-laranja w-100 mt-3">
+                <i class="bi bi-chat-dots"></i> Entrar em Contato
+              </button>
+            </div>
+          </div>
+
+          <!-- Detalhes -->
+          <div class="col-lg-6">
+            <h1 id="servico-titulo" class="text-azul mb-2">-</h1>
+
+            <div class="mb-4">
+              <div class="rating-display">
+                <div class="stars" id="servico-stars"></div>
+                <span id="servico-nota">0.0</span>
+                <small id="servico-total" class="text-muted"
+                  >(0 avaliações)</small
+                >
+              </div>
+            </div>
+
+            <div class="alert alert-info">
+              <i class="bi bi-info-circle"></i>
+              Descubra informações completas sobre este serviço
+            </div>
+
+            <h5 class="text-azul mb-2">Descrição</h5>
+            <p id="servico-descricao" class="text-justify mb-4">-</p>
+
+            <h5 class="text-azul mb-3">Avaliações</h5>
+            <div id="avaliacoes-container">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Carregando...</span>
+              </div>
+            </div>
+
+            <!-- Formulário de Avaliação -->
+            <div
+              id="form-avaliacao-container"
+              style="display: none"
+              class="mt-4 p-3 bg-light-azul rounded"
+            >
+              <h5 class="text-azul mb-3">
+                <i class="bi bi-star"></i> Deixe sua Avaliação
+              </h5>
+
+              <form id="form-avaliacao">
+                <div class="mb-3">
+                  <label class="form-label"
+                    >Preço
+                    <span id="valor-preco" class="badge bg-laranja"
+                      >3</span
+                    ></label
+                  >
+                  <input
+                    type="range"
+                    class="form-range"
+                    id="nota-preco"
+                    min="1"
+                    max="5"
+                    value="3"
+                  />
+                  <small class="text-muted">1 = Caro | 5 = Barato</small>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label"
+                    >Tempo de Execução
+                    <span id="valor-tempo" class="badge bg-laranja"
+                      >3</span
+                    ></label
+                  >
+                  <input
+                    type="range"
+                    class="form-range"
+                    id="nota-tempo"
+                    min="1"
+                    max="5"
+                    value="3"
+                  />
+                  <small class="text-muted">1 = Demorado | 5 = Rápido</small>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label"
+                    >Higiene
+                    <span id="valor-higiene" class="badge bg-laranja"
+                      >3</span
+                    ></label
+                  >
+                  <input
+                    type="range"
+                    class="form-range"
+                    id="nota-higiene"
+                    min="1"
+                    max="5"
+                    value="3"
+                  />
+                  <small class="text-muted">1 = Péssima | 5 = Excelente</small>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label"
+                    >Educação
+                    <span id="valor-educacao" class="badge bg-laranja"
+                      >3</span
+                    ></label
+                  >
+                  <input
+                    type="range"
+                    class="form-range"
+                    id="nota-educacao"
+                    min="1"
+                    max="5"
+                    value="3"
+                  />
+                  <small class="text-muted"
+                    >1 = Desrespeitoso | 5 = Muito educado</small
+                  >
+                </div>
+
+                <div class="mb-3">
+                  <label for="comentario" class="form-label"
+                    >Comentário (opcional)</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="comentario"
+                    rows="3"
+                    placeholder="Compartilhe sua experiência..."
+                  ></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-laranja w-100">
+                  <i class="bi bi-check-circle"></i> Enviar Avaliação
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="footer-bottom">
+          <p>&copy; 2026 ObraConnect. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/servicos.js"></script>
+
+    <script>
+      let servicoId = null;
+      let servicoAtual = null;
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        inicializarAutenticacao();
+
+        // Obter ID do serviço da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        servicoId = urlParams.get("id");
+
+        if (!servicoId) {
+          mostrarAviso("Serviço não encontrado", "danger");
+          return;
+        }
+
+        // Carregar detalhes
+        servicoAtual = await carregarDetalhesServico(servicoId);
+
+        if (!servicoAtualServiceAtual) return;
+
+        // Preencher dados
+        document.getElementById("servico-titulo").textContent =
+          servicoAtual.titulo;
+        document.getElementById("servico-descricao").textContent =
+          servicoAtual.desc_servico;
+
+        const imgElement = document.getElementById("servico-img");
+        const fallbackElement = document.getElementById("servico-img-fallback");
+
+        if (servicoAtual.imagem_url) {
+          imgElement.src = servicoAtual.imagem_url;
+          imgElement.onerror = function () {
+            imgElement.style.display = "none";
+            fallbackElement.style.display = "flex";
+          };
+        } else {
+          imgElement.style.display = "none";
+          fallbackElement.style.display = "flex";
+        }
+
+        document.getElementById("prestador-nome").textContent =
+          servicoAtual.nome_usuario;
+        document.getElementById("prestador-email").textContent =
+          servicoAtual.email;
+        document.getElementById("prestador-email").href =
+          `mailto:${servicoAtual.email}`;
+
+        document.getElementById("loading").style.display = "none";
+        document.getElementById("servico-container").style.display = "block";
+
+        // Carregar avaliações
+        carregarAvaliacoes();
+
+        // Mostrar formulário de avaliação se logado
+        if (usuarioLogado) {
+          document.getElementById("form-avaliacao-container").style.display =
+            "block";
+
+          // Event listeners para sliders
+          document
+            .getElementById("nota-preco")
+            .addEventListener("input", (e) => {
+              document.getElementById("valor-preco").textContent =
+                e.target.value;
+            });
+          document
+            .getElementById("nota-tempo")
+            .addEventListener("input", (e) => {
+              document.getElementById("valor-tempo").textContent =
+                e.target.value;
+            });
+          document
+            .getElementById("nota-higiene")
+            .addEventListener("input", (e) => {
+              document.getElementById("valor-higiene").textContent =
+                e.target.value;
+            });
+          document
+            .getElementById("nota-educacao")
+            .addEventListener("input", (e) => {
+              document.getElementById("valor-educacao").textContent =
+                e.target.value;
+            });
+
+          // Listener do formulário
+          document
+            .getElementById("form-avaliacao")
+            .addEventListener("submit", async (e) => {
+              e.preventDefault();
+
+              const notas = {
+                preco: parseInt(document.getElementById("nota-preco").value),
+                tempo: parseInt(document.getElementById("nota-tempo").value),
+                higiene: parseInt(
+                  document.getElementById("nota-higiene").value,
+                ),
+                educacao: parseInt(
+                  document.getElementById("nota-educacao").value,
+                ),
+              };
+
+              const comentario = document.getElementById("comentario").value;
+
+              const resultado = await criarAvaliacao(
+                servicoId,
+                notas,
+                comentario,
+              );
+
+              if (resultado.sucesso) {
+                mostrarAviso("Avaliação enviada com sucesso!", "success");
+                document.getElementById("form-avaliacao").reset();
+                carregarAvaliacoes();
+              }
+            });
+        }
+      });
+
+      async function carregarAvaliacoes() {
+        const container = document.getElementById("avaliacoes-container");
+        const resultado = await listarAvaliacoes(servicoId);
+
+        if (!resultado.sucesso) {
+          container.innerHTML =
+            '<div class="alert alert-danger">Erro ao carregar avaliações</div>';
+          return;
+        }
+
+        const { avaliacoes, medias, total_avaliacoes } = resultado.dados;
+
+        // Atualizar nota
+        if (medias) {
+          document.getElementById("servico-nota").textContent = medias.geral;
+          document.getElementById("servico-stars").innerHTML =
+            renderizarEstrelas(medias.geral);
+        }
+        document.getElementById("servico-total").textContent =
+          `(${total_avaliacoes} ${total_avaliacoes === 1 ? "avaliação" : "avaliações"})`;
+
+        if (avaliacoes.length === 0) {
+          container.innerHTML =
+            '<div class="alert alert-info">Nenhuma avaliação ainda</div>';
+          return;
+        }
+
+        let html = "";
+        avaliacoes.forEach((av) => {
+          const mediaAvaliacao =
+            (av.nota_preco +
+              av.nota_tempo_execucao +
+              av.nota_higiene +
+              av.nota_educacao) /
+            4;
+          html += `
+          <div class="card mb-3">
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-2">
+                <strong>${av.nome_usuario}</strong>
+                <small class="text-muted">${new Date(av.data_avaliacao).toLocaleDateString("pt-BR")}</small>
+              </div>
+              <div class="stars mb-2">${renderizarEstrelas(mediaAvaliacao)}</div>
+              <p class="card-text">${av.comentario || "Sem comentário"}</p>
+            </div>
+          </div>
+        `;
+        });
+
+        container.innerHTML = html;
+      }
+    </script>
+  </body>
+</html>

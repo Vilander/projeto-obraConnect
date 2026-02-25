@@ -1,0 +1,455 @@
+/* ============================================
+   ESTILOS GLOBAIS - OBRACONNECT REFATORADO
+   ============================================ */
+
+/* 1. IMPORTAÇÕES E VARIÁVEIS */
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css');
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css');
+
+:root {
+     --azul-marinho: #0B213E;
+     --laranja-principal: #FF6600;
+     --azul-claro: #E6F3FF;
+     --cinza: #666666;
+     --branco: #FFFFFF;
+     --amarelo: #FFD700;
+     --verde-sucesso: #125C13;
+     --vermelho-erro: #B71C1C;
+     --preto: #000000;
+     --sombra-leve: 0 2px 8px rgba(0, 0, 0, 0.1);
+     --sombra-media: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 2. RESET E ESTILOS BASE */
+* {
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+}
+
+html {
+     scroll-behavior: smooth;
+}
+
+body {
+     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+     background-color: var(--branco);
+     color: #333;
+     line-height: 1.6;
+}
+
+/* 3. NAVBAR */
+.navbar {
+     background: linear-gradient(135deg, var(--azul-marinho) 0%, #0d2a5e 100%);
+     box-shadow: var(--sombra-media);
+     padding: 0.5rem 0;
+}
+
+.navbar-brand {
+     font-size: 1.8rem !important;
+     font-weight: 700;
+     color: var(--branco) !important;
+     letter-spacing: 0.5px;
+     display: flex;
+     align-items: center;
+     gap: 10px;
+}
+
+.navbar-brand:hover {
+     opacity: 0.9;
+}
+
+.navbar-brand img {
+     width: 40px;
+     height: 40px;
+}
+
+.nav-link {
+     color: rgba(255, 255, 255, 0.85) !important;
+     font-weight: 500;
+     margin: 0 8px;
+     padding: 0.5rem 0 !important;
+     border-bottom: 2px solid transparent;
+     transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+     color: var(--laranja-principal) !important;
+     border-bottom-color: var(--laranja-principal);
+}
+
+.nav-link.active {
+     color: var(--laranja-principal) !important;
+     border-bottom-color: var(--laranja-principal);
+}
+
+/* 4. HERO SECTION */
+.hero {
+     background: linear-gradient(135deg, var(--azul-marinho) 0%, #0d2a5e 100%);
+     color: var(--branco);
+     padding: 5rem 0;
+     text-align: center;
+     position: relative;
+     overflow: hidden;
+}
+
+.hero::before {
+     content: '';
+     position: absolute;
+     top: 0;
+     right: 0;
+     width: 400px;
+     height: 400px;
+     background: rgba(255, 102, 0, 0.1);
+     border-radius: 50%;
+     transform: translate(100px, -100px);
+}
+
+.hero h1 {
+     font-size: 3rem;
+     font-weight: 800;
+     margin-bottom: 1rem;
+     position: relative;
+     z-index: 1;
+}
+
+.hero p {
+     font-size: 1.3rem;
+     margin-bottom: 2rem;
+     position: relative;
+     z-index: 1;
+     opacity: 0.95;
+}
+
+.btn-hero {
+     padding: 0.8rem 2rem;
+     font-weight: 600;
+     border-radius: 8px;
+     transition: all 0.3s ease;
+     margin: 0 0.5rem;
+}
+
+.btn-laranja {
+     background-color: var(--laranja-principal);
+     border-color: var(--laranja-principal);
+     color: var(--branco);
+}
+
+.btn-laranja:hover {
+     background-color: #ff5500;
+     border-color: #ff5500;
+     color: var(--branco);
+     transform: translateY(-2px);
+     box-shadow: var(--sombra-media);
+}
+
+.btn-outline-light:hover {
+     background-color: var(--laranja-principal);
+     border-color: var(--laranja-principal);
+     color: var(--branco);
+}
+
+/* 5. CARDS */
+.card {
+     border: none;
+     border-radius: 12px;
+     box-shadow: var(--sombra-leve);
+     transition: all 0.3s ease;
+     overflow: hidden;
+     height: 100%;
+}
+
+.card:hover {
+     transform: translateY(-8px);
+     box-shadow: var(--sombra-media);
+}
+
+.card-img-top {
+     height: 250px;
+     object-fit: cover;
+     background-color: var(--azul-claro);
+}
+
+.card-body {
+     padding: 1.5rem;
+}
+
+.card-title {
+     color: var(--azul-marinho);
+     font-weight: 700;
+     margin-bottom: 0.5rem;
+}
+
+.card-text {
+     color: var(--cinza);
+     font-size: 0.95rem;
+}
+
+.card-footer {
+     background-color: var(--azul-claro);
+     border: none;
+     padding: 1rem;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+}
+
+/* 6. AVALIAÇÕES */
+.stars {
+     color: var(--amarelo);
+     font-size: 1.1rem;
+}
+
+.stars i {
+     margin-right: 2px;
+}
+
+.rating-display {
+     display: flex;
+     align-items: center;
+     gap: 0.5rem;
+     font-weight: 600;
+     color: var(--azul-marinho);
+}
+
+/* 7. FORMULÁRIOS */
+.form-label {
+     font-weight: 500;
+     color: var(--azul-marinho);
+     margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+     border-radius: 8px;
+     border: 1px solid #ddd;
+     padding: 0.75rem 1rem;
+     transition: all 0.3s ease;
+     font-size: 1rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+     border-color: var(--laranja-principal);
+     box-shadow: 0 0 0 0.2rem rgba(255, 102, 0, 0.25);
+}
+
+.form-control::placeholder {
+     color: #999;
+}
+
+/* 8. ALERTAS */
+.alert {
+     border-radius: 8px;
+     border: none;
+     padding: 1rem;
+     margin-bottom: 1.5rem;
+}
+
+.alert-success {
+     background-color: rgba(18, 92, 19, 0.1);
+     color: var(--verde-sucesso);
+     border-left: 4px solid var(--verde-sucesso);
+}
+
+.alert-danger {
+     background-color: rgba(183, 28, 28, 0.1);
+     color: var(--vermelho-erro);
+     border-left: 4px solid var(--vermelho-erro);
+}
+
+.alert-info {
+     background-color: rgba(11, 33, 62, 0.1);
+     color: var(--azul-marinho);
+     border-left: 4px solid var(--azul-marinho);
+}
+
+/* 9. FOOTER */
+footer {
+     background-color: var(--azul-marinho);
+     color: rgba(255, 255, 255, 0.85);
+     padding: 3rem 0 1rem;
+     margin-top: 5rem;
+     border-top: 2px solid var(--laranja-principal);
+}
+
+footer h6 {
+     color: var(--laranja-principal);
+     font-weight: 700;
+     margin-bottom: 1rem;
+}
+
+footer a {
+     color: rgba(255, 255, 255, 0.85);
+     text-decoration: none;
+     transition: color 0.3s ease;
+}
+
+footer a:hover {
+     color: var(--laranja-principal);
+}
+
+.footer-bottom {
+     border-top: 1px solid rgba(255, 255, 255, 0.1);
+     padding-top: 1rem;
+     margin-top: 1rem;
+     text-align: center;
+     font-size: 0.9rem;
+}
+
+/* 10. LOADER/SPINNER */
+.spinner-border {
+     color: var(--laranja-principal);
+}
+
+.loading {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     min-height: 400px;
+}
+
+/* 11. MODAL */
+.modal-content {
+     border-radius: 12px;
+     border: none;
+     box-shadow: var(--sombra-media);
+}
+
+.modal-header {
+     background-color: var(--azul-marinho);
+     color: var(--branco);
+     border: none;
+     border-radius: 12px 12px 0 0;
+}
+
+.modal-header .btn-close {
+     filter: brightness(0) invert(1);
+}
+
+.modal-title {
+     font-weight: 700;
+}
+
+/* 12. BADGE */
+.badge {
+     padding: 0.4rem 0.8rem;
+     border-radius: 20px;
+     font-weight: 500;
+     font-size: 0.85rem;
+}
+
+.badge-prestador {
+     background-color: var(--laranja-principal);
+     color: var(--branco);
+}
+
+.badge-admin {
+     background-color: var(--verde-sucesso);
+     color: var(--branco);
+}
+
+/* 13. PAGINATION */
+.pagination .page-link {
+     color: var(--azul-marinho);
+     border-color: #ddd;
+}
+
+.pagination .page-link:hover {
+     background-color: var(--azul-claro);
+     border-color: var(--laranja-principal);
+     color: var(--laranja-principal);
+}
+
+.pagination .page-item.active .page-link {
+     background-color: var(--laranja-principal);
+     border-color: var(--laranja-principal);
+}
+
+/* 14. UTILITÁRIOS */
+.text-azul {
+     color: var(--azul-marinho);
+}
+
+.text-laranja {
+     color: var(--laranja-principal);
+}
+
+.bg-azul {
+     background-color: var(--azul-marinho);
+     color: var(--branco);
+}
+
+.bg-light-azul {
+     background-color: var(--azul-claro);
+}
+
+.section-title {
+     color: var(--azul-marinho);
+     font-weight: 800;
+     font-size: 2rem;
+     margin-bottom: 2rem;
+     text-align: center;
+     position: relative;
+}
+
+.section-title::after {
+     content: '';
+     display: block;
+     width: 80px;
+     height: 4px;
+     background-color: var(--laranja-principal);
+     margin: 1rem auto 0;
+     border-radius: 2px;
+}
+
+/* 15. RESPONSIVIDADE */
+@media (max-width: 768px) {
+     .hero h1 {
+          font-size: 2rem;
+     }
+
+     .hero p {
+          font-size: 1.1rem;
+     }
+
+     .section-title {
+          font-size: 1.5rem;
+     }
+
+     .navbar-brand {
+          font-size: 1.3rem;
+     }
+
+     .navbar-brand img {
+          width: 35px;
+          height: 35px;
+     }
+
+     .card-img-top {
+          height: 200px;
+     }
+}
+
+/* 16. ANIMAÇÕES */
+@keyframes fadeIn {
+     from {
+          opacity: 0;
+          transform: translateY(20px);
+     }
+
+     to {
+          opacity: 1;
+          transform: translateY(0);
+     }
+}
+
+.fade-in {
+     animation: fadeIn 0.5s ease-out;
+}
+
+/* Espaçamentos */
+.my-section {
+     margin-top: 4rem;
+     margin-bottom: 4rem;
+}

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - ObraConnect</title>
+    <link rel="stylesheet" href="../style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+      .login-container {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background: linear-gradient(
+          135deg,
+          var(--azul-marinho) 0%,
+          #0d2a5e 100%
+        );
+      }
+      .login-card {
+        max-width: 400px;
+        width: 100%;
+        margin: auto;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      }
+      .login-header {
+        background-color: var(--azul-marinho);
+        color: var(--branco);
+        padding: 2rem 0;
+        text-align: center;
+        border-radius: 12px 12px 0 0;
+      }
+      .login-header i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: var(--laranja-principal);
+      }
+      .login-header h2 {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-card bg-white">
+        <div class="login-header">
+          <i class="bi bi-hammer"></i>
+          <h2>ObraConnect</h2>
+        </div>
+
+        <div class="card-body p-4">
+          <h3 class="text-azul mb-4">Faça seu Login</h3>
+
+          <div id="aviso-container"></div>
+
+          <form id="form-login">
+            <div class="mb-3">
+              <label for="login-input" class="form-label">
+                <i class="bi bi-envelope"></i> Email ou Usuário
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="login-input"
+                placeholder="seu-email@email.com ou seu_usuario"
+                required
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="senha-input" class="form-label">
+                <i class="bi bi-lock"></i> Senha
+              </label>
+              <input
+                type="password"
+                class="form-control"
+                id="senha-input"
+                placeholder="Sua senha"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn btn-laranja w-100 mb-3">
+              <i class="bi bi-box-arrow-in-right"></i> Entrar
+            </button>
+          </form>
+
+          <hr />
+
+          <div class="text-center">
+            <p>
+              Não tem conta?
+              <a href="registro.html" class="text-laranja fw-bold"
+                >Registre-se agora</a
+              >
+            </p>
+          </div>
+
+          <div class="text-center mt-3">
+            <a href="../index.html" class="text-azul text-decoration-none">
+              <i class="bi bi-arrow-left"></i> Voltar à página inicial
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+
+    <script>
+      document
+        .getElementById("form-login")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const login = document.getElementById("login-input").value;
+          const senha = document.getElementById("senha-input").value;
+
+          const resultado = await realizarLogin(login, senha);
+
+          if (resultado.sucesso) {
+            mostrarAviso(
+              "Login realizado com sucesso! Redirecionando...",
+              "success",
+            );
+            setTimeout(() => {
+              window.location.href = "../index.html";
+            }, 2000);
+          }
+        });
+    </script>
+  </body>
+</html>

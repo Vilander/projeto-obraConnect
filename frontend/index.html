@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="ObraConnect - Marketplace de serviços de construção e reformas"
+    />
+    <title>ObraConnect - Marketplace de Serviços</title>
+
+    <!-- CSS Bootstrap e Custom -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+    />
+
+    <!-- Bootstrap JS (para navegação e componentes) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">
+          <i class="bi bi-hammer"></i>
+          ObraConnect
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="navbar-nav ms-auto">
+            <a class="nav-link" href="index.html">Início</a>
+
+            <!-- Links para autenticados -->
+            <a
+              id="link-cadastrar-servico"
+              class="nav-link"
+              href="pages/cadastrar-servico.html"
+              style="display: none"
+            >
+              <i class="bi bi-plus-circle"></i> Novo Serviço
+            </a>
+            <a
+              id="link-perfil"
+              class="nav-link"
+              href="pages/meu-perfil.html"
+              style="display: none"
+            >
+              <i class="bi bi-person"></i> <span id="nome-usuario">Perfil</span>
+            </a>
+            <a
+              id="link-logout"
+              class="nav-link text-laranja"
+              href="#"
+              onclick="
+                realizarLogout();
+                return false;
+              "
+              style="display: none"
+            >
+              <i class="bi bi-box-arrow-right"></i> Sair
+            </a>
+
+            <!-- Divisor -->
+            <div
+              id="divisor-navbar"
+              style="
+                border-left: 1px solid rgba(255, 255, 255, 0.2);
+                margin: 0 0.5rem;
+                height: 1.5rem;
+                display: none;
+              "
+            ></div>
+
+            <!-- Links para não autenticados -->
+            <a id="link-login" class="nav-link" href="pages/login.html">
+              <i class="bi bi-box-arrow-in-right"></i> Login
+            </a>
+            <a id="link-registro" class="nav-link" href="pages/registro.html">
+              <i class="bi bi-person-plus"></i> Registrar
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Alert Container -->
+    <div id="aviso-container"></div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+      <div class="container">
+        <h1>Encontre Profissionais Qualificados</h1>
+        <p>Para sua reforma, construção ou qualquer serviço de engenharia</p>
+        <div>
+          <a href="#servicos" class="btn btn-hero btn-laranja"
+            >Explorar Serviços</a
+          >
+          <a
+            id="btn-tornar-prestador"
+            class="btn btn-hero btn-outline-light"
+            href="pages/cadastrar-servico.html"
+            style="display: none"
+          >
+            Anunciar Serviço
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO DE SERVIÇOS -->
+    <section class="my-section" id="servicos">
+      <div class="container">
+        <h2 class="section-title">Serviços Disponíveis</h2>
+
+        <!-- Carregando serviços aqui -->
+        <div id="servicos-container" class="row g-4">
+          <!-- Será preenchido pelo JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SEÇÃO SOBRE -->
+    <section class="my-section bg-light-azul py-5">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6">
+            <h2 class="section-title">Por que ObraConnect?</h2>
+            <ul class="list-unstyled">
+              <li class="mb-3">
+                <i class="bi bi-check-circle-fill text-laranja"></i>
+                <strong>Profissionais Verificados</strong> - Todos os
+                prestadores são avaliados
+              </li>
+              <li class="mb-3">
+                <i class="bi bi-check-circle-fill text-laranja"></i>
+                <strong>Avaliações Reais</strong> - Leia comentários de clientes
+                anteriores
+              </li>
+              <li class="mb-3">
+                <i class="bi bi-check-circle-fill text-laranja"></i>
+                <strong>Fácil de Usar</strong> - Interface simples e intuitiva
+              </li>
+              <li class="mb-3">
+                <i class="bi bi-check-circle-fill text-laranja"></i>
+                <strong>Bem Organizado</strong> - Encontre exatamente o que
+                precisa
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-6 text-center">
+            <div style="font-size: 5rem; color: var(--laranja-principal)">
+              <i class="bi bi-building"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <h6 class="d-flex align-items-center gap-2">
+              <i class="bi bi-hammer"></i> ObraConnect
+            </h6>
+            <p>Conectando profissionais com clientes de confiança.</p>
+          </div>
+          <div class="col-md-4">
+            <h6>Links Rápidos</h6>
+            <ul class="list-unstyled">
+              <li><a href="#servicos">Serviços</a></li>
+              <li><a href="pages/login.html">Login</a></li>
+              <li><a href="pages/registro.html">Registrar</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <h6>Contato</h6>
+            <p>
+              📧 contato@obraconnect.com.br<br />
+              📱 (19) 9999-9999
+            </p>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2026 ObraConnect. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/servicos.js"></script>
+
+    <script>
+      // Inicializar ao carregar a página
+      document.addEventListener("DOMContentLoaded", function () {
+        inicializarAutenticacao();
+        carregarServicos();
+
+        // Mostrar botão "Tornar Prestador" se não for
+        const btnTornarPrestador = document.getElementById(
+          "btn-tornar-prestador",
+        );
+        if (usuarioLogado && usuarioLogado.tipo_usuario === "usuario") {
+          btnTornarPrestador.style.display = "block";
+        }
+      });
+    </script>
+  </body>
+</html>
