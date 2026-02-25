@@ -24,13 +24,26 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const [servicos] = await banco.query(`
-      SELECT s.*, u.nome_usuario, u.email
+      SELECT 
+        s.*,
+        u.nome_usuario,
+        u.email,
+        CAST(COALESCE(AVG((a.nota_preco + a.nota_tempo_execucao + a.nota_higiene + a.nota_educacao) / 4), 0) AS DECIMAL(10,2)) as nota_media,
+        COUNT(a.id) as total_avaliacoes
       FROM oc__tb_servico s
       JOIN oc__tb_usuario u ON s.id_usuario = u.id
+      LEFT JOIN oc__tb_avaliacao a ON s.id = a.id_servico
+      GROUP BY s.id
       ORDER BY s.data_cadastro DESC
     `);
 
-    res.status(200).json(servicos);
+    // Converter nota_media para número
+    const servicosFormatados = servicos.map((s) => ({
+      ...s,
+      nota_media: parseFloat(s.nota_media) || 0,
+    }));
+
+    res.status(200).json(servicosFormatados);
   } catch (erro) {
     console.error("Erro ao listar serviços:", erro);
     res.status(500).json({ erro: "Erro ao listar serviços." });
@@ -63,10 +76,17 @@ router.get("/:id", async (req, res) => {
   try {
     const [servicos] = await banco.query(
       `
-      SELECT s.*, u.nome_usuario, u.email
+      SELECT 
+        s.*,
+        u.nome_usuario,
+        u.email,
+        CAST(COALESCE(AVG((a.nota_preco + a.nota_tempo_execucao + a.nota_higiene + a.nota_educacao) / 4), 0) AS DECIMAL(10,2)) as nota_media,
+        COUNT(a.id) as total_avaliacoes
       FROM oc__tb_servico s
       JOIN oc__tb_usuario u ON s.id_usuario = u.id
+      LEFT JOIN oc__tb_avaliacao a ON s.id = a.id_servico
       WHERE s.id = ?
+      GROUP BY s.id
     `,
       [id],
     );
@@ -75,7 +95,10 @@ router.get("/:id", async (req, res) => {
       return res.status(404).json({ erro: "Serviço não encontrado." });
     }
 
-    res.status(200).json(servicos[0]);
+    const servico = servicos[0];
+    servico.nota_media = parseFloat(servico.nota_media) || 0;
+
+    res.status(200).json(servico);
   } catch (erro) {
     console.error("Erro ao buscar serviço:", erro);
     res.status(500).json({ erro: "Erro ao buscar serviço." });

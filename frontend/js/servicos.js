@@ -47,7 +47,8 @@ function criarCardServico(servico) {
   const div = document.createElement("div");
   div.className = "col-12 col-sm-6 col-lg-4 fade-in";
 
-  const estrelas = renderizarEstrelas(servico.nota_media || 0);
+  const notaMedia = parseFloat(servico.nota_media || 0);
+  const estrelas = renderizarEstrelas(notaMedia);
   const imagemUrl = servico.imagem_url || null;
 
   // Criar fallback para imagem
@@ -76,7 +77,7 @@ function criarCardServico(servico) {
       <div class="card-footer">
         <div class="rating-display">
           <div class="stars">${estrelas}</div>
-          <span>${servico.nota_media ? servico.nota_media.toFixed(1) : "0.0"}</span>
+          <span>${notaMedia.toFixed(1)}</span>
         </div>
         <a href="pages/detalhes-servico.html?id=${servico.id}" class="btn btn-sm btn-outline-primary">
           Ver Detalhes
