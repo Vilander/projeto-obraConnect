@@ -66,7 +66,7 @@ async function realizarLogin(loginOuEmail, senha) {
 /**
  * Registrar novo usuário
  */
-async function realizarRegistro(nome, email, senha, login) {
+async function realizarRegistro(nome, email, senha, login, telefone) {
   try {
     // Validações básicas
     if (!nome || !email || !senha || !login) {
@@ -83,7 +83,13 @@ async function realizarRegistro(nome, email, senha, login) {
       };
     }
 
-    const resultado = await registrarUsuario(nome, email, senha, login);
+    const resultado = await registrarUsuario(
+      nome,
+      email,
+      senha,
+      login,
+      telefone,
+    );
 
     if (!resultado.sucesso) {
       return {
@@ -116,7 +122,7 @@ function realizarLogout() {
   atualizarUIAutenticacao();
 
   // Redirecionar para página inicial
-  window.location.href = "index.html";
+  window.location.href = "../index.html";
 }
 
 /**
@@ -220,24 +226,61 @@ async function tornarPrestadorUsuario() {
 }
 
 /**
- * Mostrar aviso/notificação
+ * Mostrar aviso/notificação via Modal
  */
 function mostrarAviso(mensagem, tipo = "info") {
-  const container = document.getElementById("aviso-container");
-  if (!container) return;
+  // Criar modal dinamicamente
+  const modalId = "modal-aviso-" + Date.now();
+  const modal = document.createElement("div");
+  modal.id = modalId;
+  modal.className = "modal fade";
+  modal.tabIndex = "-1";
+  modal.setAttribute("aria-hidden", "true");
 
-  const alerta = document.createElement("div");
-  alerta.className = `alert alert-${tipo} alert-dismissible fade show`;
-  alerta.role = "alert";
-  alerta.innerHTML = `
-    ${mensagem}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  // Definir cor do título e ícone baseado no tipo
+  let icone = "bi-info-circle";
+  let titulo = "Informação";
+  let corHeader = "info";
+
+  if (tipo === "success") {
+    icone = "bi-check-circle";
+    titulo = "Sucesso!";
+    corHeader = "success";
+  } else if (tipo === "danger") {
+    icone = "bi-exclamation-circle";
+    titulo = "Erro!";
+    corHeader = "danger";
+  } else if (tipo === "warning") {
+    icone = "bi-exclamation-triangle";
+    titulo = "Atenção!";
+    corHeader = "warning";
+  }
+
+  modal.innerHTML = `
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-${corHeader} text-white">
+          <h5 class="modal-title">
+            <i class="bi ${icone}"></i> ${titulo}
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ${mensagem}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
   `;
 
-  container.appendChild(alerta);
+  document.body.appendChild(modal);
+  const bsModal = new bootstrap.Modal(modal);
+  bsModal.show();
 
-  // Remover automaticamente após 5 segundos
-  setTimeout(() => {
-    alerta.remove();
-  }, 5000);
+  // Remover modal do DOM após fechar
+  modal.addEventListener("hidden.bs.modal", () => {
+    modal.remove();
+  });
 }

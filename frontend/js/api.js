@@ -93,12 +93,13 @@ async function fazerUpload(endpoint, arquivo) {
 // FUNÇÕES DE AUTENTICAÇÃO
 // ============================================
 
-async function registrarUsuario(nome, email, senha, login) {
+async function registrarUsuario(nome, email, senha, login, telefone) {
   return fazerRequisicao("/auth/registro", "POST", {
     nome_usuario: nome,
     email,
     senha,
     login,
+    telefone,
   });
 }
 
@@ -215,6 +216,10 @@ async function editarServico(
 
 async function deletarServico(id) {
   return fazerRequisicao(`/servicos/${id}`, "DELETE");
+}
+
+async function desativarServico(id) {
+  return fazerRequisicao(`/servicos/${id}/desativar`, "PATCH");
 }
 
 // ============================================

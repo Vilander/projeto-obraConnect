@@ -80,6 +80,7 @@ router.get("/:id", async (req, res) => {
         s.*,
         u.nome_usuario,
         u.email,
+        u.telefone,
         CAST(COALESCE(AVG((a.nota_preco + a.nota_tempo_execucao + a.nota_higiene + a.nota_educacao) / 4), 0) AS DECIMAL(10,2)) as nota_media,
         COUNT(a.id) as total_avaliacoes
       FROM oc__tb_servico s
@@ -211,7 +212,43 @@ router.put(
 );
 
 // ===============================================
-// 6. DELETAR SERVIÇO (PROTEGIDO)
+// 6. DESATIVAR SERVIÇO (PROTEGIDO)
+// ===============================================
+router.patch("/:id/desativar", verificarToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Verificar se existe e se é dono
+    const [servicos] = await banco.query(
+      "SELECT * FROM oc__tb_servico WHERE id = ?",
+      [id],
+    );
+
+    if (servicos.length === 0) {
+      return res.status(404).json({ erro: "Serviço não encontrado." });
+    }
+
+    if (servicos[0].id_usuario !== req.usuario.id) {
+      return res
+        .status(403)
+        .json({ erro: "Você não tem permissão para desativar este serviço." });
+    }
+
+    // Desativar serviço (apenas mudar status para 0)
+    await banco.query("UPDATE oc__tb_servico SET ativo = 0 WHERE id = ?", [id]);
+
+    res.status(200).json({
+      mensagem: "Serviço desativado com sucesso!",
+      id_servico: id,
+    });
+  } catch (erro) {
+    console.error("Erro ao desativar serviço:", erro);
+    res.status(500).json({ erro: "Erro ao desativar serviço." });
+  }
+});
+
+// ===============================================
+// 7. DELETAR SERVIÇO (PROTEGIDO)
 // ===============================================
 router.delete("/:id", verificarToken, async (req, res) => {
   const { id } = req.params;

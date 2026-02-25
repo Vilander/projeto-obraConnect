@@ -234,29 +234,71 @@ async function criarNovoServico(titulo, descricao, idCategoria, arquivo) {
 }
 
 /**
+ * Editar serviço existente
+ */
+async function editarServicoFunc(id, titulo, descricao, idCategoria, arquivo) {
+  try {
+    if (!titulo || !descricao) {
+      mostrarAviso("Título e descrição são obrigatórios", "warning");
+      return false;
+    }
+
+    const resultado = await editarServico(
+      id,
+      titulo,
+      descricao,
+      idCategoria,
+      arquivo,
+    );
+
+    if (!resultado.sucesso) {
+      mostrarAviso(`Erro: ${resultado.erro}`, "danger");
+      return false;
+    }
+
+    mostrarAviso("Serviço atualizado com sucesso!", "success");
+    return true;
+  } catch (erro) {
+    console.error("Erro ao editar serviço:", erro);
+    mostrarAviso("Erro ao editar serviço", "danger");
+    return false;
+  }
+}
+
+/**
  * Deletar serviço com confirmação
+ */
+/**
+ * Abrir página para editar serviço
+ */
+function abrirEditarServico(id) {
+  window.location.href = `cadastrar-servico.html?id=${id}`;
+}
+
+/**
+ * Desativar serviço com confirmação
  */
 async function deletarServicoConfirm(id) {
   if (
     confirm(
-      "Tem certeza que deseja deletar este serviço? Esta ação não pode ser desfeita.",
+      "Tem certeza que deseja desativar este serviço? Você poderá reativá-lo depois.",
     )
   ) {
     try {
-      const resultado = await deletarServico(id);
+      const resultado = await desativarServico(id);
 
       if (!resultado.sucesso) {
         mostrarAviso(`Erro: ${resultado.erro}`, "danger");
         return;
       }
 
-      mostrarAviso("Serviço deletado com sucesso!", "success");
+      mostrarAviso("Serviço desativado com sucesso!", "success");
 
       // Recarregar lista
       carregarMeusServicos();
     } catch (erro) {
-      console.error("Erro ao deletar:", erro);
-      mostrarAviso("Erro ao deletar serviço", "danger");
+      console.error("Erro ao desativar:", erro);
+      mostrarAviso("Erro ao desativar serviço", "danger");
     }
   }
 }

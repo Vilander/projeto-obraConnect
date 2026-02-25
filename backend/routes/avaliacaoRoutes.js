@@ -141,6 +141,13 @@ router.post("/", verificarToken, async (req, res) => {
       return res.status(404).json({ erro: "Serviço não encontrado." });
     }
 
+    // Verificar se o usuário é o dono do serviço
+    if (servicos[0].id_usuario === req.usuario.id) {
+      return res
+        .status(403)
+        .json({ erro: "Você não pode avaliar seu próprio serviço!" });
+    }
+
     // Verificar se já avaliou este serviço
     const [avaliacaoExistente] = await banco.query(
       "SELECT * FROM oc__tb_avaliacao WHERE id_servico = ? AND id_usuario = ?",

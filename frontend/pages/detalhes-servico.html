@@ -217,14 +217,30 @@
       document.getElementById("prestador-email").href =
         `mailto:${servicoAtual.email}`;
 
+      // Configurar botão de WhatsApp
+      const btnContato = document.getElementById("btn-contato");
+      if (servicoAtual.telefone) {
+        // Remover formatação do telefone (apenas números)
+        const telefoneLimpo = servicoAtual.telefone.replace(/\D/g, "");
+        // Garantir que começa com 55 (código do Brasil)
+        const telefoneFormatado = telefoneLimpo.startsWith("55")
+          ? telefoneLimpo
+          : "55" + telefoneLimpo;
+        const linkWhatsApp = `https://wa.me/${telefoneFormatado}`;
+        btnContato.onclick = () => window.open(linkWhatsApp, "_blank");
+      } else {
+        btnContato.disabled = true;
+        btnContato.title = "Telefone não informado";
+      }
+
       document.getElementById("loading").style.display = "none";
       document.getElementById("servico-container").style.display = "block";
 
       // Carregar avaliações
       carregarAvaliacoes();
 
-      // Mostrar formulário de avaliação se logado
-      if (usuarioLogado) {
+      // Mostrar formulário de avaliação se logado e NÃO for o dono do serviço
+      if (usuarioLogado && usuarioLogado.id !== servicoAtual.id_usuario) {
         document.getElementById("form-avaliacao-container").style.display =
           "block";
 

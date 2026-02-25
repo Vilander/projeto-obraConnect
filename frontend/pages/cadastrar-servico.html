@@ -1,59 +1,61 @@
 <!doctype html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cadastrar Serviço - ObraConnect</title>
-    <link rel="stylesheet" href="../style.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  </head>
-  <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="../index.html">
-          <i class="bi bi-hammer"></i> ObraConnect
-        </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <div class="navbar-nav ms-auto">
-            <a class="nav-link" href="../index.html">Início</a>
-            <a id="link-perfil" class="nav-link" href="meu-perfil.html"
-              >Perfil</a
-            >
-            <a
-              id="link-logout"
-              class="nav-link text-laranja"
-              href="#"
-              onclick="
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastrar Serviço - ObraConnect</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="../index.html">
+        <i class="bi bi-hammer"></i> ObraConnect
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link" href="../index.html">Início</a>
+          <a id="link-perfil" class="nav-link" href="meu-perfil.html">Perfil</a>
+          <a id="link-logout" class="nav-link text-laranja" href="#" onclick="
                 realizarLogout();
                 return false;
-              "
-            >
-              <i class="bi bi-box-arrow-right"></i> Sair
-            </a>
-          </div>
+              ">
+            <i class="bi bi-box-arrow-right"></i> Sair
+          </a>
         </div>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <div id="aviso-container"></div>
+  <div id="aviso-container"></div>
 
-    <!-- MAIN CONTENT -->
-    <main class="container my-section">
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
+  <!-- MAIN CONTENT -->
+  <main class="container my-section">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div id="alerta-nao-prestador" style="display: none">
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <h4 class="alert-heading"><i class="bi bi-exclamation-triangle"></i> Acesso Restrito</h4>
+            <p>Apenas prestadores podem cadastrar serviços. Deseja se tornar prestador?</p>
+            <button type="button" class="btn btn-warning" id="btn-virar-prestador-modal">
+              <i class="bi bi-briefcase"></i> Sim, quero ser prestador
+            </button>
+            <a href="meu-perfil.html" class="btn btn-outline-secondary ms-2">
+              <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        </div>
+
+        <div id="cadastro-container" style="display: block">
           <div class="card shadow-sm">
             <div class="card-header bg-azul text-white">
               <h3 class="mb-0">
@@ -67,13 +69,8 @@
                   <label for="titulo" class="form-label">
                     <i class="bi bi-pencil"></i> Título do Serviço *
                   </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="titulo"
-                    placeholder="Ex: Pintura Residencial, Alvenaria, etc..."
-                    required
-                  />
+                  <input type="text" class="form-control" id="titulo"
+                    placeholder="Ex: Pintura Residencial, Alvenaria, etc..." required />
                 </div>
 
                 <div class="mb-3">
@@ -99,13 +96,9 @@
                   <label for="descricao" class="form-label">
                     <i class="bi bi-file-text"></i> Descrição Detalhada *
                   </label>
-                  <textarea
-                    class="form-control"
-                    id="descricao"
-                    rows="6"
+                  <textarea class="form-control" id="descricao" rows="6"
                     placeholder="Descreva seu serviço com detalhes. Inclua experiência, especialidades, etc..."
-                    required
-                  ></textarea>
+                    required></textarea>
                   <small class="text-muted">Mínimo 20 caracteres</small>
                 </div>
 
@@ -114,12 +107,8 @@
                     <i class="bi bi-image"></i> Foto do Serviço
                   </label>
                   <div class="input-group">
-                    <input
-                      type="file"
-                      class="form-control"
-                      id="imagem"
-                      accept="image/jpeg,image/jpg,image/png,image/gif"
-                    />
+                    <input type="file" class="form-control" id="imagem"
+                      accept="image/jpeg,image/jpg,image/png,image/gif" />
                   </div>
                   <small class="text-muted">
                     Tipos aceitos: JPG, PNG, GIF (máx 5MB). Deixe em branco para
@@ -145,71 +134,135 @@
           </div>
         </div>
       </div>
-    </main>
+    </div>
+  </main>
 
-    <!-- FOOTER -->
-    <footer>
-      <div class="container">
-        <div class="footer-bottom">
-          <p>&copy; 2026 ObraConnect. Todos os direitos reservados.</p>
-        </div>
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <p>&copy; 2026 ObraConnect. Todos os direitos reservados.</p>
       </div>
-    </footer>
+    </div>
+  </footer>
 
-    <script src="../js/api.js"></script>
-    <script src="../js/auth.js"></script>
-    <script src="../js/servicos.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/auth.js"></script>
+  <script src="../js/servicos.js"></script>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        inicializarAutenticacao();
+  <script>
+    let servicoEmEdicao = null;
 
-        // Exigir ser prestador
-        if (!exigirAutenticacao()) return;
-        if (!exigirPrestador()) return;
+    document.addEventListener("DOMContentLoaded", async function () {
+      inicializarAutenticacao();
 
-        // Listener do formulário
+      // Exigir autenticação
+      if (!exigirAutenticacao()) return;
+
+      // Verificar se é prestador
+      if (
+        !usuarioLogado ||
+        (usuarioLogado.tipo_usuario !== "prestador" &&
+          usuarioLogado.tipo_usuario !== "admin")
+      ) {
+        // Não é prestador, mostrar mensagem
+        document.getElementById("alerta-nao-prestador").style.display =
+          "block";
+        document.getElementById("cadastro-container").style.display = "none";
+
+        // Listener para o botão de virar prestador
         document
-          .getElementById("form-servico")
-          .addEventListener("submit", async (e) => {
-            e.preventDefault();
-
-            const titulo = document.getElementById("titulo").value.trim();
-            const descricao = document.getElementById("descricao").value.trim();
-            const categoria = document.getElementById("categoria").value;
-            const imagem = document.getElementById("imagem").files[0];
-
-            // Validações básicas
-            if (titulo.length < 5) {
-              mostrarAviso(
-                "O título deve ter no mínimo 5 caracteres",
-                "warning",
-              );
-              return;
+          .getElementById("btn-virar-prestador-modal")
+          .addEventListener("click", async () => {
+            if (await tornarPrestadorUsuario()) {
+              setTimeout(() => {
+                location.reload();
+              }, 2000);
             }
+          });
 
-            if (descricao.length < 20) {
-              mostrarAviso(
-                "A descrição deve ter no mínimo 20 caracteres",
-                "warning",
-              );
-              return;
-            }
+        return;
+      }
 
-            const sucesso = await criarNovoServico(
+      // Verificar se é edição
+      const urlParams = new URLSearchParams(window.location.search);
+      const servicoId = urlParams.get("id");
+
+      if (servicoId) {
+        // Modo edição
+        const resultado = await buscarServicoPorId(servicoId);
+        if (resultado.sucesso) {
+          servicoEmEdicao = resultado.dados;
+          // Preencher formulário
+          document.getElementById("titulo").value = servicoEmEdicao.titulo;
+          document.getElementById("descricao").value =
+            servicoEmEdicao.desc_servico;
+          document.getElementById("categoria").value =
+            servicoEmEdicao.id_categoria || "";
+          // Atualizar título da página
+          document.querySelector(".card-header h3").innerHTML =
+            '<i class="bi bi-pencil"></i> Editar Serviço';
+          document.querySelector("button[type='submit']").innerHTML =
+            '<i class="bi bi-check-circle"></i> Salvar Alterações';
+        }
+      }
+
+      // Listener do formulário
+      document
+        .getElementById("form-servico")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const titulo = document.getElementById("titulo").value.trim();
+          const descricao = document.getElementById("descricao").value.trim();
+          const categoria = document.getElementById("categoria").value;
+          const imagem = document.getElementById("imagem").files[0];
+
+          // Validações básicas
+          if (titulo.length < 5) {
+            mostrarAviso(
+              "O título deve ter no mínimo 5 caracteres",
+              "warning",
+            );
+            return;
+          }
+
+          if (descricao.length < 20) {
+            mostrarAviso(
+              "A descrição deve ter no mínimo 20 caracteres",
+              "warning",
+            );
+            return;
+          }
+
+          let sucesso;
+          if (servicoEmEdicao) {
+            // Modo edição
+            sucesso = await editarServicoFunc(
+              servicoEmEdicao.id,
               titulo,
               descricao,
               categoria || null,
               imagem,
             );
+          } else {
+            // Modo criação
+            sucesso = await criarNovoServico(
+              titulo,
+              descricao,
+              categoria || null,
+              imagem,
+            );
+          }
 
-            if (sucesso) {
-              setTimeout(() => {
-                window.location.href = "meu-perfil.html";
-              }, 2000);
-            }
-          });
-      });
-    </script>
-  </body>
+          if (sucesso) {
+            setTimeout(() => {
+              window.location.href = "meu-perfil.html";
+            }, 2000);
+          }
+        });
+    });
+  </script>
+</body>
+
 </html>

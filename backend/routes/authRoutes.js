@@ -32,7 +32,7 @@ function gerarToken(usuario) {
 // 1. REGISTRO DE NOVO USUÁRIO
 // ===============================================
 router.post("/registro", async (req, res) => {
-  const { nome_usuario, email, senha, login } = req.body;
+  const { nome_usuario, email, senha, login, telefone } = req.body;
 
   // Validar campos obrigatórios
   if (!nome_usuario || !email || !senha || !login) {
@@ -69,8 +69,15 @@ router.post("/registro", async (req, res) => {
 
     // Inserir usuário no banco
     const [resultado] = await banco.query(
-      "INSERT INTO oc__tb_usuario (nome_usuario, email, senha, login, tipo_usuario, data_cadastro) VALUES (?, ?, ?, ?, ?, NOW())",
-      [nome_usuario, email, senhaCriptografada, login, "usuario"],
+      "INSERT INTO oc__tb_usuario (nome_usuario, email, senha, login, telefone, tipo_usuario, data_cadastro) VALUES (?, ?, ?, ?, ?, ?, NOW())",
+      [
+        nome_usuario,
+        email,
+        senhaCriptografada,
+        login,
+        telefone || null,
+        "usuario",
+      ],
     );
 
     res.status(201).json({
