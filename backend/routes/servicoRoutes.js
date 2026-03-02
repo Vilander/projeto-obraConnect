@@ -24,8 +24,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
   try {
     const [servicos] = await banco.query(`
-      SELECT 
-        s.*,
+      SELECT s.*,
         u.nome_usuario,
         u.email,
         CAST(COALESCE(AVG((a.nota_preco + a.nota_tempo_execucao + a.nota_higiene + a.nota_educacao) / 4), 0) AS DECIMAL(10,2)) as nota_media,

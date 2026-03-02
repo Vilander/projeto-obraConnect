@@ -6,7 +6,7 @@
 require("dotenv").config();
 const mysql = require("mysql2/promise");
 
-// Criar pool de conexões (melhor performance que conexão única)
+// Criar pool de conexões 
 const pool = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
   user: process.env.DB_USER || "root",

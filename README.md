@@ -213,7 +213,7 @@ O banco de dados vem com 4 usuários pré-cadastrados:
 
 | Usuário      | Email                    | Senha    | Tipo      |
 | ------------ | ------------------------ | -------- | --------- |
-| admin        | vilander.costa@gmail.com | senha123 | admin     |
+| admin        | xxxxxxxxxxxxxa@gmail.com | senha123 | admin     |
 | jose         | jose@email.com           | senha123 | usuario   |
 | aline        | aline@teste.com          | senha123 | usuario   |
 | jose-antonio | jose.antonio@teste.com   | senha123 | prestador |

@@ -1,5 +1,5 @@
 /**
- * Configuração do Multer para upload de imagens
+ * Configuração para upload de imagens
  * Salva as fotos na pasta /uploads
  */
 
@@ -45,7 +45,7 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-// Configurar multer
+
 module.exports = multer({
   storage: storage,
   fileFilter: fileFilter,
