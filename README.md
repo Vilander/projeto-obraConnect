@@ -213,7 +213,7 @@ O banco de dados vem com 4 usuários pré-cadastrados:
 
 | Usuário      | Email                    | Senha    | Tipo      |
 | ------------ | ------------------------ | -------- | --------- |
-| admin        | xxxxxxxxxxxxxa@gmail.com | senha123 | admin     |
+| admin        | xxxxxxxxxxxxxa@gmail.com | admin123 | admin     |
 | jose         | jose@email.com           | senha123 | usuario   |
 | aline        | aline@teste.com          | senha123 | usuario   |
 | jose-antonio | jose.antonio@teste.com   | senha123 | prestador |
@@ -232,10 +232,11 @@ O banco de dados vem com 4 usuários pré-cadastrados:
 As cores utilizadas foram baseadas no projeto original:
 
 ```css
---azul-marinho: #0b213e /* Navbar, backgrounds */ --laranja-principal: #ff6600
-  /* Botões, destaques */ --azul-claro: #e6f3ff /* Backgrounds suaves */
-  --verde-sucesso: #125c13 /* Mensagens de sucesso */ --vermelho-erro: #b71c1c
-  /* Mensagens de erro */;
+--azul-marinho: #0b213e /* Navbar, backgrounds */ 
+--laranja-principal: #ff6600  /* Botões, destaques */ 
+--azul-claro: #e6f3ff /* Backgrounds suaves */
+--verde-sucesso: #125c13 /* Mensagens de sucesso */ 
+--vermelho-erro: #b71c1c  /* Mensagens de erro */;
 ```
 
 ---
@@ -326,18 +327,6 @@ curl -X POST http://localhost:3001/api/auth/login \
 
 ---
 
-## 🚀 Próximos Passos / Melhorias Futuras
-
-- [ ] Adicionar busca e filtros
-- [ ] Sistema de mensagens entre user/prestador
-- [ ] Dashboard admin com estatísticas
-- [ ] Pagamentos (Stripe/PayPal)
-- [ ] App mobile (React Native)
-- [ ] Testes automatizados
-- [ ] Deploy (Heroku, Vercel, AWS)
-
----
-
 ## 📚 Referências
 
 - [Express.js Docs](https://expressjs.com/pt-br/)
@@ -355,11 +344,9 @@ MIT License - Use livremente!
 ---
 
 ## 👨‍💻 Autor
-
+Vilander Costa
 Desenvolvido como um projeto de aprendizado.\
-Inspirado no projeto original ObraConnect + Loja de Informática
 
-**Última atualização**: 24 de fevereiro de 2026
 
 ---
 
@@ -370,8 +357,6 @@ Para dúvidas ou problemas:
 1. Verificar este README
 2. Ver console do navegador (F12)
 3. Ver logs do backend (terminal)
-4. Criar issue/pull request
 
----
 
-**Aproveite! 🚀**
+

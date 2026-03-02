@@ -105,7 +105,7 @@ app.use((erro, req, res, next) => {
 app.listen(PORT, () => {
   console.log("");
   console.log("╔══════════════════════════════════════════════════╗");
-  console.log("║    🏗️  OBRACONNECT🏗️                             ");
+  console.log("║          OBRACONNECT                              ");
   console.log("╠══════════════════════════════════════════════════╣");
   console.log(`║  Servidor rodando em: http://localhost:${PORT}`);
   console.log("╚══════════════════════════════════════════════════╝");
