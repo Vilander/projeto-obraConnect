@@ -23,20 +23,10 @@ const router = express.Router();
 // ===============================================
 router.get("/", async (req, res) => {
   try {
-    const [servicos] = await banco.query(`
-      SELECT s.*,
-        u.nome_usuario,
-        u.email,
-        CAST(COALESCE(AVG((a.nota_preco + a.nota_tempo_execucao + a.nota_higiene + a.nota_educacao) / 4), 0) AS DECIMAL(10,2)) as nota_media,
-        COUNT(a.id) as total_avaliacoes
-      FROM oc__tb_servico s
-      JOIN oc__tb_usuario u ON s.id_usuario = u.id
-      LEFT JOIN oc__tb_avaliacao a ON s.id = a.id_servico
-      GROUP BY s.id
-      ORDER BY s.data_cadastro DESC
-    `);
+    const [servicos] = await banco.query(
+      "SELECT * FROM oc__vw_servicos_ativos",
+    );
 
-    // Converter nota_media para número
     const servicosFormatados = servicos.map((s) => ({
       ...s,
       nota_media: parseFloat(s.nota_media) || 0,
@@ -73,21 +63,9 @@ router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
+    // Chamamos a view e passamos o ID no WHERE
     const [servicos] = await banco.query(
-      `
-      SELECT 
-        s.*,
-        u.nome_usuario,
-        u.email,
-        u.telefone,
-        CAST(COALESCE(AVG((a.nota_preco + a.nota_tempo_execucao + a.nota_higiene + a.nota_educacao) / 4), 0) AS DECIMAL(10,2)) as nota_media,
-        COUNT(a.id) as total_avaliacoes
-      FROM oc__tb_servico s
-      JOIN oc__tb_usuario u ON s.id_usuario = u.id
-      LEFT JOIN oc__tb_avaliacao a ON s.id = a.id_servico
-      WHERE s.id = ?
-      GROUP BY s.id
-    `,
+      "SELECT * FROM oc__vw_detalhes_servico WHERE id = ?",
       [id],
     );
 
@@ -116,7 +94,6 @@ router.post(
   async (req, res) => {
     const { titulo, descricao, id_categoria } = req.body;
 
-    // Validar campos
     if (!titulo || !descricao) {
       return res
         .status(400)
@@ -124,13 +101,12 @@ router.post(
     }
 
     try {
-      // Montar URL da imagem
       let imagemUrl = null;
       if (req.file) {
-        imagemUrl = `http://localhost:${process.env.PORT}/uploads/${req.file.filename}`;
+        const host = req.get("host");
+        imagemUrl = `${req.protocol}://${host}/uploads/${req.file.filename}`;
       }
 
-      // Inserir no banco
       const [resultado] = await banco.query(
         `INSERT INTO oc__tb_servico (id_usuario, titulo, desc_servico, id_categoria, imagem_url, data_cadastro) 
        VALUES (?, ?, ?, ?, ?, NOW())`,
@@ -188,10 +164,9 @@ router.put(
 
       // Se houver nova imagem, atualizar também
       if (req.file) {
+        const host = req.get("host");
         sql += ", imagem_url = ?";
-        params.push(
-          `http://localhost:${process.env.PORT}/uploads/${req.file.filename}`,
-        );
+        params.push(`${req.protocol}://${host}/uploads/${req.file.filename}`);
       }
 
       sql += " WHERE id = ?";

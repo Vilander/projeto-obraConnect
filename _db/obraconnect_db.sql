@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 25/01/2026 às 17:59
+-- Tempo de geração: 18/03/2026 às 02:18
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `obraconnect_db`
 --
-CREATE DATABASE IF NOT EXISTS `obraconnect_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `obraconnect_db`;
 
 -- --------------------------------------------------------
 
@@ -29,7 +27,6 @@ USE `obraconnect_db`;
 -- Estrutura para tabela `oc__tb_avaliacao`
 --
 
-DROP TABLE IF EXISTS `oc__tb_avaliacao`;
 CREATE TABLE `oc__tb_avaliacao` (
   `id` int(11) NOT NULL,
   `id_servico` int(11) NOT NULL,
@@ -48,8 +45,7 @@ CREATE TABLE `oc__tb_avaliacao` (
 
 INSERT INTO `oc__tb_avaliacao` (`id`, `id_servico`, `id_usuario`, `nota_preco`, `nota_tempo_execucao`, `nota_higiene`, `nota_educacao`, `comentario`, `data_avaliacao`) VALUES
 (1, 1, 1, 5, 4, 5, 5, 'Excelente profissional, muito educado!', '2026-01-22 19:08:35'),
-(2, 2, 1, 5, 4, 3, 4, 'Teste de avaliação', '2026-01-25 14:18:21'),
-(3, 4, 3, 3, 4, 2, 4, 'Bom trabalho', '2026-01-25 15:37:01');
+(2, 2, 1, 5, 4, 3, 4, 'Teste de avaliação', '2026-01-25 14:18:21');
 
 -- --------------------------------------------------------
 
@@ -57,7 +53,6 @@ INSERT INTO `oc__tb_avaliacao` (`id`, `id_servico`, `id_usuario`, `nota_preco`, 
 -- Estrutura para tabela `oc__tb_categoria`
 --
 
-DROP TABLE IF EXISTS `oc__tb_categoria`;
 CREATE TABLE `oc__tb_categoria` (
   `id` int(11) NOT NULL,
   `nome_categoria` varchar(50) NOT NULL
@@ -105,7 +100,6 @@ INSERT INTO `oc__tb_categoria` (`id`, `nome_categoria`) VALUES
 -- Estrutura para tabela `oc__tb_servico`
 --
 
-DROP TABLE IF EXISTS `oc__tb_servico`;
 CREATE TABLE `oc__tb_servico` (
   `id` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
@@ -122,10 +116,10 @@ CREATE TABLE `oc__tb_servico` (
 --
 
 INSERT INTO `oc__tb_servico` (`id`, `id_usuario`, `titulo`, `desc_servico`, `imagem_url`, `id_categoria`, `ativo`, `data_cadastro`) VALUES
-(1, 1, 'Reforma Total - Promoção', 'Agora com pintura inclusa e acabamento de qualidade', 'http://localhost:3001/uploads/placeholder-1.jpg', 10, 1, '2026-01-20 20:23:51'),
-(2, 1, 'Serviço com Pintura', 'Pintura de qualidade superior com acabamento profissional', 'http://localhost:3001/uploads/placeholder-2.jpg', 26, 1, '2026-01-20 22:36:13'),
-(3, 1, 'Consultoria de Projeto', 'Consultoria em projetos arquitetônicos e técnicos', 'http://localhost:3001/uploads/placeholder-3.jpg', 1, 1, '2026-01-25 14:33:27'),
-(4, 4, 'Alvenaria e Enchimento', 'Pedreiro com experiência em alvenaria moderna', 'http://localhost:3001/uploads/placeholder-4.jpg', 25, 1, '2026-01-25 15:36:19');
+(1, 1, 'Reforma Total - Promoção', 'Agora com pintura inclusa e acabamento de qualidade', 'http://localhost:3001/uploads/placeholder-1.jpg', 10, 0, '2026-01-20 20:23:51'),
+(2, 1, 'Serviço com Pintura', 'Pintura de qualidade superior com acabamento profissional', 'http://localhost:3001/uploads/placeholder-2.jpg', 26, 0, '2026-01-20 22:36:13'),
+(3, 1, 'Consultoria de Projeto', 'Consultoria em projetos arquitetônicos e técnicos', 'http://localhost:3001/uploads/placeholder-3.jpg', 1, 0, '2026-01-25 14:33:27'),
+(6, 1, 'TESTE2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum', 'http://localhost:3001/uploads/imagem-1773795221254-89120496.png', 3, 1, '2026-03-18 00:53:41');
 
 -- --------------------------------------------------------
 
@@ -133,7 +127,6 @@ INSERT INTO `oc__tb_servico` (`id`, `id_usuario`, `titulo`, `desc_servico`, `ima
 -- Estrutura para tabela `oc__tb_usuario`
 --
 
-DROP TABLE IF EXISTS `oc__tb_usuario`;
 CREATE TABLE `oc__tb_usuario` (
   `id` int(11) NOT NULL,
   `login` varchar(50) NOT NULL,
@@ -154,6 +147,67 @@ INSERT INTO `oc__tb_usuario` (`id`, `login`, `senha`, `nome_usuario`, `email`, `
 (2, 'jose', '$2b$10$f3uw0JbWIxIY3yP95/xUI.wncxJ/vgC0P/Ln/JotUHyvuR0Swlhna', 'José Silva', 'jose@email.com', '11999999999', 'usuario', '2026-01-22 19:39:12'),
 (3, 'aline', '$2b$10$dOIh00LEeBu5lT38sm9Rueeo5nToldA1ppU9YNUcyKh.bJWobiTci', 'Aline Costa', 'aline@teste.com', '11988888888', 'usuario', '2026-01-25 14:28:43'),
 (4, 'jose-antonio', '$2b$10$GyByPscflcANbpeOVSJr7ejBoGntNiCp6joyZFNNyZS1lmBIXwTEK', 'José Antonio', 'jose.antonio@teste.com', '11987654321', 'prestador', '2026-01-25 15:35:18');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para view `oc__vw_detalhes_servico`
+-- (Veja abaixo para a visão atual)
+--
+CREATE TABLE `oc__vw_detalhes_servico` (
+`id` int(11)
+,`id_usuario` int(11)
+,`titulo` varchar(100)
+,`desc_servico` text
+,`imagem_url` varchar(500)
+,`id_categoria` int(11)
+,`ativo` tinyint(1)
+,`data_cadastro` timestamp
+,`nome_usuario` varchar(100)
+,`email` varchar(100)
+,`telefone` varchar(20)
+,`nota_media` decimal(10,2)
+,`total_avaliacoes` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para view `oc__vw_servicos_ativos`
+-- (Veja abaixo para a visão atual)
+--
+CREATE TABLE `oc__vw_servicos_ativos` (
+`id` int(11)
+,`id_usuario` int(11)
+,`titulo` varchar(100)
+,`desc_servico` text
+,`imagem_url` varchar(500)
+,`id_categoria` int(11)
+,`ativo` tinyint(1)
+,`data_cadastro` timestamp
+,`nome_usuario` varchar(100)
+,`email` varchar(100)
+,`nota_media` decimal(10,2)
+,`total_avaliacoes` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para view `oc__vw_detalhes_servico`
+--
+DROP TABLE IF EXISTS `oc__vw_detalhes_servico`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `oc__vw_detalhes_servico`  AS SELECT `oc__tb_servico`.`id` AS `id`, `oc__tb_servico`.`id_usuario` AS `id_usuario`, `oc__tb_servico`.`titulo` AS `titulo`, `oc__tb_servico`.`desc_servico` AS `desc_servico`, `oc__tb_servico`.`imagem_url` AS `imagem_url`, `oc__tb_servico`.`id_categoria` AS `id_categoria`, `oc__tb_servico`.`ativo` AS `ativo`, `oc__tb_servico`.`data_cadastro` AS `data_cadastro`, `oc__tb_usuario`.`nome_usuario` AS `nome_usuario`, `oc__tb_usuario`.`email` AS `email`, `oc__tb_usuario`.`telefone` AS `telefone`, cast(coalesce(avg((`oc__tb_avaliacao`.`nota_preco` + `oc__tb_avaliacao`.`nota_tempo_execucao` + `oc__tb_avaliacao`.`nota_higiene` + `oc__tb_avaliacao`.`nota_educacao`) / 4),0) as decimal(10,2)) AS `nota_media`, count(`oc__tb_avaliacao`.`id`) AS `total_avaliacoes` FROM ((`oc__tb_servico` join `oc__tb_usuario` on(`oc__tb_servico`.`id_usuario` = `oc__tb_usuario`.`id`)) left join `oc__tb_avaliacao` on(`oc__tb_servico`.`id` = `oc__tb_avaliacao`.`id_servico`)) GROUP BY `oc__tb_servico`.`id` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para view `oc__vw_servicos_ativos`
+--
+DROP TABLE IF EXISTS `oc__vw_servicos_ativos`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `oc__vw_servicos_ativos`  AS SELECT `oc__tb_servico`.`id` AS `id`, `oc__tb_servico`.`id_usuario` AS `id_usuario`, `oc__tb_servico`.`titulo` AS `titulo`, `oc__tb_servico`.`desc_servico` AS `desc_servico`, `oc__tb_servico`.`imagem_url` AS `imagem_url`, `oc__tb_servico`.`id_categoria` AS `id_categoria`, `oc__tb_servico`.`ativo` AS `ativo`, `oc__tb_servico`.`data_cadastro` AS `data_cadastro`, `oc__tb_usuario`.`nome_usuario` AS `nome_usuario`, `oc__tb_usuario`.`email` AS `email`, cast(coalesce(avg((`oc__tb_avaliacao`.`nota_preco` + `oc__tb_avaliacao`.`nota_tempo_execucao` + `oc__tb_avaliacao`.`nota_higiene` + `oc__tb_avaliacao`.`nota_educacao`) / 4),0) as decimal(10,2)) AS `nota_media`, count(`oc__tb_avaliacao`.`id`) AS `total_avaliacoes` FROM ((`oc__tb_servico` join `oc__tb_usuario` on(`oc__tb_servico`.`id_usuario` = `oc__tb_usuario`.`id`)) left join `oc__tb_avaliacao` on(`oc__tb_servico`.`id` = `oc__tb_avaliacao`.`id_servico`)) WHERE `oc__tb_servico`.`ativo` = 1 GROUP BY `oc__tb_servico`.`id` ORDER BY `oc__tb_servico`.`data_cadastro` DESC ;
 
 --
 -- Índices para tabelas despejadas
@@ -210,7 +264,7 @@ ALTER TABLE `oc__tb_categoria`
 -- AUTO_INCREMENT de tabela `oc__tb_servico`
 --
 ALTER TABLE `oc__tb_servico`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `oc__tb_usuario`
@@ -235,9 +289,8 @@ ALTER TABLE `oc__tb_avaliacao`
 ALTER TABLE `oc__tb_servico`
   ADD CONSTRAINT `oc__tb_servico_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `oc__tb_usuario` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `oc__tb_servico_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `oc__tb_categoria` (`id`) ON DELETE SET NULL;
-
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

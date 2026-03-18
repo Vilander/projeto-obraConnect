@@ -1,11 +1,3 @@
-/**
- * SERVIDOR PRINCIPAL - ObraConnect Refatorado
- * Marketplace de serviços de construção
- *
- * Tecnologias: Node.js + Express + MySQL
- * Frontend: HTML + Bootstrap + JavaScript Vanilla
- */
-
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -29,7 +21,7 @@ const PORT = process.env.PORT || 3001;
 app.use(
   cors({
     origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     credentials: true,
   }),
 );
@@ -112,7 +104,6 @@ app.listen(PORT, () => {
   console.log("");
 });
 
-// Graceful shutdown
 process.on("SIGTERM", () => {
   console.log("Servidor encerrando...");
   process.exit(0);
