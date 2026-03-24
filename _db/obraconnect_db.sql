@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 24/03/2026 às 23:57
+-- Tempo de geração: 25/03/2026 às 00:10
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -22,47 +22,6 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `obraconnect_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `obraconnect_db`;
-
--- --------------------------------------------------------
-
---
--- Estrutura stand-in para view `oc_vw_avaliacoes_do_servico`
--- (Veja abaixo para a visão atual)
---
-DROP VIEW IF EXISTS `oc_vw_avaliacoes_do_servico`;
-CREATE TABLE IF NOT EXISTS `oc_vw_avaliacoes_do_servico` (
-`id` int(11)
-,`id_servico` int(11)
-,`id_usuario` int(11)
-,`nota_preco` tinyint(4)
-,`nota_tempo_execucao` tinyint(4)
-,`nota_higiene` tinyint(4)
-,`nota_educacao` tinyint(4)
-,`comentario` text
-,`data_avaliacao` timestamp
-,`nome_usuario` varchar(100)
-);
-
--- --------------------------------------------------------
-
---
--- Estrutura stand-in para view `oc_vw_historico_de_avaliacoes`
--- (Veja abaixo para a visão atual)
---
-DROP VIEW IF EXISTS `oc_vw_historico_de_avaliacoes`;
-CREATE TABLE IF NOT EXISTS `oc_vw_historico_de_avaliacoes` (
-`id` int(11)
-,`id_servico` int(11)
-,`id_usuario` int(11)
-,`nota_preco` tinyint(4)
-,`nota_tempo_execucao` tinyint(4)
-,`nota_higiene` tinyint(4)
-,`nota_educacao` tinyint(4)
-,`comentario` text
-,`data_avaliacao` timestamp
-,`nome_servico` varchar(100)
-,`nome_usuario` varchar(100)
-);
 
 -- --------------------------------------------------------
 
@@ -209,6 +168,26 @@ INSERT INTO `oc__tb_usuario` (`id`, `login`, `senha`, `nome_usuario`, `email`, `
 -- --------------------------------------------------------
 
 --
+-- Estrutura stand-in para view `oc__vw_avaliacoes_do_servico`
+-- (Veja abaixo para a visão atual)
+--
+DROP VIEW IF EXISTS `oc__vw_avaliacoes_do_servico`;
+CREATE TABLE IF NOT EXISTS `oc__vw_avaliacoes_do_servico` (
+`id` int(11)
+,`id_servico` int(11)
+,`id_usuario` int(11)
+,`nota_preco` tinyint(4)
+,`nota_tempo_execucao` tinyint(4)
+,`nota_higiene` tinyint(4)
+,`nota_educacao` tinyint(4)
+,`comentario` text
+,`data_avaliacao` timestamp
+,`nome_usuario` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura stand-in para view `oc__vw_detalhes_servico`
 -- (Veja abaixo para a visão atual)
 --
@@ -227,6 +206,27 @@ CREATE TABLE IF NOT EXISTS `oc__vw_detalhes_servico` (
 ,`telefone` varchar(20)
 ,`nota_media` decimal(10,2)
 ,`total_avaliacoes` bigint(21)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para view `oc__vw_historico_de_avaliacoes`
+-- (Veja abaixo para a visão atual)
+--
+DROP VIEW IF EXISTS `oc__vw_historico_de_avaliacoes`;
+CREATE TABLE IF NOT EXISTS `oc__vw_historico_de_avaliacoes` (
+`id` int(11)
+,`id_servico` int(11)
+,`id_usuario` int(11)
+,`nota_preco` tinyint(4)
+,`nota_tempo_execucao` tinyint(4)
+,`nota_higiene` tinyint(4)
+,`nota_educacao` tinyint(4)
+,`comentario` text
+,`data_avaliacao` timestamp
+,`nome_servico` varchar(100)
+,`nome_usuario` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -254,22 +254,12 @@ CREATE TABLE IF NOT EXISTS `oc__vw_servicos_ativos` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para view `oc_vw_avaliacoes_do_servico`
+-- Estrutura para view `oc__vw_avaliacoes_do_servico`
 --
-DROP TABLE IF EXISTS `oc_vw_avaliacoes_do_servico`;
+DROP TABLE IF EXISTS `oc__vw_avaliacoes_do_servico`;
 
-DROP VIEW IF EXISTS `oc_vw_avaliacoes_do_servico`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `oc_vw_avaliacoes_do_servico`  AS SELECT `oc__tb_avaliacao`.`id` AS `id`, `oc__tb_avaliacao`.`id_servico` AS `id_servico`, `oc__tb_avaliacao`.`id_usuario` AS `id_usuario`, `oc__tb_avaliacao`.`nota_preco` AS `nota_preco`, `oc__tb_avaliacao`.`nota_tempo_execucao` AS `nota_tempo_execucao`, `oc__tb_avaliacao`.`nota_higiene` AS `nota_higiene`, `oc__tb_avaliacao`.`nota_educacao` AS `nota_educacao`, `oc__tb_avaliacao`.`comentario` AS `comentario`, `oc__tb_avaliacao`.`data_avaliacao` AS `data_avaliacao`, `oc__tb_usuario`.`nome_usuario` AS `nome_usuario` FROM (`oc__tb_avaliacao` join `oc__tb_usuario` on(`oc__tb_avaliacao`.`id_usuario` = `oc__tb_usuario`.`id`)) ;
-
--- --------------------------------------------------------
-
---
--- Estrutura para view `oc_vw_historico_de_avaliacoes`
---
-DROP TABLE IF EXISTS `oc_vw_historico_de_avaliacoes`;
-
-DROP VIEW IF EXISTS `oc_vw_historico_de_avaliacoes`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `oc_vw_historico_de_avaliacoes`  AS SELECT `oc__tb_avaliacao`.`id` AS `id`, `oc__tb_avaliacao`.`id_servico` AS `id_servico`, `oc__tb_avaliacao`.`id_usuario` AS `id_usuario`, `oc__tb_avaliacao`.`nota_preco` AS `nota_preco`, `oc__tb_avaliacao`.`nota_tempo_execucao` AS `nota_tempo_execucao`, `oc__tb_avaliacao`.`nota_higiene` AS `nota_higiene`, `oc__tb_avaliacao`.`nota_educacao` AS `nota_educacao`, `oc__tb_avaliacao`.`comentario` AS `comentario`, `oc__tb_avaliacao`.`data_avaliacao` AS `data_avaliacao`, `oc__tb_servico`.`titulo` AS `nome_servico`, `oc__tb_usuario`.`nome_usuario` AS `nome_usuario` FROM ((`oc__tb_avaliacao` join `oc__tb_servico` on(`oc__tb_avaliacao`.`id_servico` = `oc__tb_servico`.`id`)) join `oc__tb_usuario` on(`oc__tb_servico`.`id_usuario` = `oc__tb_usuario`.`id`)) ;
+DROP VIEW IF EXISTS `oc__vw_avaliacoes_do_servico`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `oc__vw_avaliacoes_do_servico`  AS SELECT `oc__tb_avaliacao`.`id` AS `id`, `oc__tb_avaliacao`.`id_servico` AS `id_servico`, `oc__tb_avaliacao`.`id_usuario` AS `id_usuario`, `oc__tb_avaliacao`.`nota_preco` AS `nota_preco`, `oc__tb_avaliacao`.`nota_tempo_execucao` AS `nota_tempo_execucao`, `oc__tb_avaliacao`.`nota_higiene` AS `nota_higiene`, `oc__tb_avaliacao`.`nota_educacao` AS `nota_educacao`, `oc__tb_avaliacao`.`comentario` AS `comentario`, `oc__tb_avaliacao`.`data_avaliacao` AS `data_avaliacao`, `oc__tb_usuario`.`nome_usuario` AS `nome_usuario` FROM (`oc__tb_avaliacao` join `oc__tb_usuario` on(`oc__tb_avaliacao`.`id_usuario` = `oc__tb_usuario`.`id`)) ;
 
 -- --------------------------------------------------------
 
@@ -280,6 +270,16 @@ DROP TABLE IF EXISTS `oc__vw_detalhes_servico`;
 
 DROP VIEW IF EXISTS `oc__vw_detalhes_servico`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `oc__vw_detalhes_servico`  AS SELECT `oc__tb_servico`.`id` AS `id`, `oc__tb_servico`.`id_usuario` AS `id_usuario`, `oc__tb_servico`.`titulo` AS `titulo`, `oc__tb_servico`.`desc_servico` AS `desc_servico`, `oc__tb_servico`.`imagem_url` AS `imagem_url`, `oc__tb_servico`.`id_categoria` AS `id_categoria`, `oc__tb_servico`.`ativo` AS `ativo`, `oc__tb_servico`.`data_cadastro` AS `data_cadastro`, `oc__tb_usuario`.`nome_usuario` AS `nome_usuario`, `oc__tb_usuario`.`email` AS `email`, `oc__tb_usuario`.`telefone` AS `telefone`, cast(coalesce(avg((`oc__tb_avaliacao`.`nota_preco` + `oc__tb_avaliacao`.`nota_tempo_execucao` + `oc__tb_avaliacao`.`nota_higiene` + `oc__tb_avaliacao`.`nota_educacao`) / 4),0) as decimal(10,2)) AS `nota_media`, count(`oc__tb_avaliacao`.`id`) AS `total_avaliacoes` FROM ((`oc__tb_servico` join `oc__tb_usuario` on(`oc__tb_servico`.`id_usuario` = `oc__tb_usuario`.`id`)) left join `oc__tb_avaliacao` on(`oc__tb_servico`.`id` = `oc__tb_avaliacao`.`id_servico`)) GROUP BY `oc__tb_servico`.`id` ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para view `oc__vw_historico_de_avaliacoes`
+--
+DROP TABLE IF EXISTS `oc__vw_historico_de_avaliacoes`;
+
+DROP VIEW IF EXISTS `oc__vw_historico_de_avaliacoes`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `oc__vw_historico_de_avaliacoes`  AS SELECT `oc__tb_avaliacao`.`id` AS `id`, `oc__tb_avaliacao`.`id_servico` AS `id_servico`, `oc__tb_avaliacao`.`id_usuario` AS `id_usuario`, `oc__tb_avaliacao`.`nota_preco` AS `nota_preco`, `oc__tb_avaliacao`.`nota_tempo_execucao` AS `nota_tempo_execucao`, `oc__tb_avaliacao`.`nota_higiene` AS `nota_higiene`, `oc__tb_avaliacao`.`nota_educacao` AS `nota_educacao`, `oc__tb_avaliacao`.`comentario` AS `comentario`, `oc__tb_avaliacao`.`data_avaliacao` AS `data_avaliacao`, `oc__tb_servico`.`titulo` AS `nome_servico`, `oc__tb_usuario`.`nome_usuario` AS `nome_usuario` FROM ((`oc__tb_avaliacao` join `oc__tb_servico` on(`oc__tb_avaliacao`.`id_servico` = `oc__tb_servico`.`id`)) join `oc__tb_usuario` on(`oc__tb_servico`.`id_usuario` = `oc__tb_usuario`.`id`)) ;
 
 -- --------------------------------------------------------
 

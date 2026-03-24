@@ -22,7 +22,7 @@ router.get("/servico/:id", async (req, res) => {
     const [avaliacoes] = await banco.query(
       `
       SELECT *
-      FROM oc_vw_avaliacoes_do_servico
+      FROM oc__vw_avaliacoes_do_servico
       WHERE id_servico = ?
       ORDER BY data_avaliacao DESC
       `,
@@ -83,7 +83,7 @@ router.get("/meu-historico", verificarToken, async (req, res) => {
     const [avaliacoes] = await banco.query(
       `
       SELECT *
-      FROM oc_vw_historico_de_avaliacoes
+      FROM oc__vw_historico_de_avaliacoes
       WHERE id_usuario = ?
       ORDER BY data_avaliacao DESC
       `,
