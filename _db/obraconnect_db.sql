@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 18/03/2026 às 02:18
+-- Tempo de geração: 24/03/2026 às 23:57
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,6 +20,49 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `obraconnect_db`
 --
+CREATE DATABASE IF NOT EXISTS `obraconnect_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `obraconnect_db`;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para view `oc_vw_avaliacoes_do_servico`
+-- (Veja abaixo para a visão atual)
+--
+DROP VIEW IF EXISTS `oc_vw_avaliacoes_do_servico`;
+CREATE TABLE IF NOT EXISTS `oc_vw_avaliacoes_do_servico` (
+`id` int(11)
+,`id_servico` int(11)
+,`id_usuario` int(11)
+,`nota_preco` tinyint(4)
+,`nota_tempo_execucao` tinyint(4)
+,`nota_higiene` tinyint(4)
+,`nota_educacao` tinyint(4)
+,`comentario` text
+,`data_avaliacao` timestamp
+,`nome_usuario` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura stand-in para view `oc_vw_historico_de_avaliacoes`
+-- (Veja abaixo para a visão atual)
+--
+DROP VIEW IF EXISTS `oc_vw_historico_de_avaliacoes`;
+CREATE TABLE IF NOT EXISTS `oc_vw_historico_de_avaliacoes` (
+`id` int(11)
+,`id_servico` int(11)
+,`id_usuario` int(11)
+,`nota_preco` tinyint(4)
+,`nota_tempo_execucao` tinyint(4)
+,`nota_higiene` tinyint(4)
+,`nota_educacao` tinyint(4)
+,`comentario` text
+,`data_avaliacao` timestamp
+,`nome_servico` varchar(100)
+,`nome_usuario` varchar(100)
+);
 
 -- --------------------------------------------------------
 
@@ -27,8 +70,9 @@ SET time_zone = "+00:00";
 -- Estrutura para tabela `oc__tb_avaliacao`
 --
 
-CREATE TABLE `oc__tb_avaliacao` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `oc__tb_avaliacao`;
+CREATE TABLE IF NOT EXISTS `oc__tb_avaliacao` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_servico` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `nota_preco` tinyint(4) NOT NULL CHECK (`nota_preco` between 1 and 5),
@@ -36,8 +80,11 @@ CREATE TABLE `oc__tb_avaliacao` (
   `nota_higiene` tinyint(4) NOT NULL CHECK (`nota_higiene` between 1 and 5),
   `nota_educacao` tinyint(4) NOT NULL CHECK (`nota_educacao` between 1 and 5),
   `comentario` text DEFAULT NULL,
-  `data_avaliacao` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `data_avaliacao` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `id_usuario` (`id_usuario`),
+  KEY `id_servico` (`id_servico`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `oc__tb_avaliacao`
@@ -53,10 +100,13 @@ INSERT INTO `oc__tb_avaliacao` (`id`, `id_servico`, `id_usuario`, `nota_preco`, 
 -- Estrutura para tabela `oc__tb_categoria`
 --
 
-CREATE TABLE `oc__tb_categoria` (
-  `id` int(11) NOT NULL,
-  `nome_categoria` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `oc__tb_categoria`;
+CREATE TABLE IF NOT EXISTS `oc__tb_categoria` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_categoria` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome_categoria` (`nome_categoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `oc__tb_categoria`
@@ -100,16 +150,20 @@ INSERT INTO `oc__tb_categoria` (`id`, `nome_categoria`) VALUES
 -- Estrutura para tabela `oc__tb_servico`
 --
 
-CREATE TABLE `oc__tb_servico` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `oc__tb_servico`;
+CREATE TABLE IF NOT EXISTS `oc__tb_servico` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) NOT NULL,
   `titulo` varchar(100) NOT NULL,
   `desc_servico` text NOT NULL,
   `imagem_url` varchar(500) DEFAULT NULL,
   `id_categoria` int(11) DEFAULT NULL,
   `ativo` tinyint(1) DEFAULT 1,
-  `data_cadastro` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `data_cadastro` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  KEY `id_usuario` (`id_usuario`),
+  KEY `id_categoria` (`id_categoria`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `oc__tb_servico`
@@ -127,16 +181,20 @@ INSERT INTO `oc__tb_servico` (`id`, `id_usuario`, `titulo`, `desc_servico`, `ima
 -- Estrutura para tabela `oc__tb_usuario`
 --
 
-CREATE TABLE `oc__tb_usuario` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `oc__tb_usuario`;
+CREATE TABLE IF NOT EXISTS `oc__tb_usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(50) NOT NULL,
   `senha` varchar(255) NOT NULL,
   `nome_usuario` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `telefone` varchar(20) DEFAULT NULL,
   `tipo_usuario` varchar(50) NOT NULL DEFAULT 'usuario',
-  `data_cadastro` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `data_cadastro` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `login` (`login`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `oc__tb_usuario`
@@ -154,7 +212,8 @@ INSERT INTO `oc__tb_usuario` (`id`, `login`, `senha`, `nome_usuario`, `email`, `
 -- Estrutura stand-in para view `oc__vw_detalhes_servico`
 -- (Veja abaixo para a visão atual)
 --
-CREATE TABLE `oc__vw_detalhes_servico` (
+DROP VIEW IF EXISTS `oc__vw_detalhes_servico`;
+CREATE TABLE IF NOT EXISTS `oc__vw_detalhes_servico` (
 `id` int(11)
 ,`id_usuario` int(11)
 ,`titulo` varchar(100)
@@ -176,7 +235,8 @@ CREATE TABLE `oc__vw_detalhes_servico` (
 -- Estrutura stand-in para view `oc__vw_servicos_ativos`
 -- (Veja abaixo para a visão atual)
 --
-CREATE TABLE `oc__vw_servicos_ativos` (
+DROP VIEW IF EXISTS `oc__vw_servicos_ativos`;
+CREATE TABLE IF NOT EXISTS `oc__vw_servicos_ativos` (
 `id` int(11)
 ,`id_usuario` int(11)
 ,`titulo` varchar(100)
@@ -194,10 +254,31 @@ CREATE TABLE `oc__vw_servicos_ativos` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura para view `oc_vw_avaliacoes_do_servico`
+--
+DROP TABLE IF EXISTS `oc_vw_avaliacoes_do_servico`;
+
+DROP VIEW IF EXISTS `oc_vw_avaliacoes_do_servico`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `oc_vw_avaliacoes_do_servico`  AS SELECT `oc__tb_avaliacao`.`id` AS `id`, `oc__tb_avaliacao`.`id_servico` AS `id_servico`, `oc__tb_avaliacao`.`id_usuario` AS `id_usuario`, `oc__tb_avaliacao`.`nota_preco` AS `nota_preco`, `oc__tb_avaliacao`.`nota_tempo_execucao` AS `nota_tempo_execucao`, `oc__tb_avaliacao`.`nota_higiene` AS `nota_higiene`, `oc__tb_avaliacao`.`nota_educacao` AS `nota_educacao`, `oc__tb_avaliacao`.`comentario` AS `comentario`, `oc__tb_avaliacao`.`data_avaliacao` AS `data_avaliacao`, `oc__tb_usuario`.`nome_usuario` AS `nome_usuario` FROM (`oc__tb_avaliacao` join `oc__tb_usuario` on(`oc__tb_avaliacao`.`id_usuario` = `oc__tb_usuario`.`id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura para view `oc_vw_historico_de_avaliacoes`
+--
+DROP TABLE IF EXISTS `oc_vw_historico_de_avaliacoes`;
+
+DROP VIEW IF EXISTS `oc_vw_historico_de_avaliacoes`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `oc_vw_historico_de_avaliacoes`  AS SELECT `oc__tb_avaliacao`.`id` AS `id`, `oc__tb_avaliacao`.`id_servico` AS `id_servico`, `oc__tb_avaliacao`.`id_usuario` AS `id_usuario`, `oc__tb_avaliacao`.`nota_preco` AS `nota_preco`, `oc__tb_avaliacao`.`nota_tempo_execucao` AS `nota_tempo_execucao`, `oc__tb_avaliacao`.`nota_higiene` AS `nota_higiene`, `oc__tb_avaliacao`.`nota_educacao` AS `nota_educacao`, `oc__tb_avaliacao`.`comentario` AS `comentario`, `oc__tb_avaliacao`.`data_avaliacao` AS `data_avaliacao`, `oc__tb_servico`.`titulo` AS `nome_servico`, `oc__tb_usuario`.`nome_usuario` AS `nome_usuario` FROM ((`oc__tb_avaliacao` join `oc__tb_servico` on(`oc__tb_avaliacao`.`id_servico` = `oc__tb_servico`.`id`)) join `oc__tb_usuario` on(`oc__tb_servico`.`id_usuario` = `oc__tb_usuario`.`id`)) ;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para view `oc__vw_detalhes_servico`
 --
 DROP TABLE IF EXISTS `oc__vw_detalhes_servico`;
 
+DROP VIEW IF EXISTS `oc__vw_detalhes_servico`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `oc__vw_detalhes_servico`  AS SELECT `oc__tb_servico`.`id` AS `id`, `oc__tb_servico`.`id_usuario` AS `id_usuario`, `oc__tb_servico`.`titulo` AS `titulo`, `oc__tb_servico`.`desc_servico` AS `desc_servico`, `oc__tb_servico`.`imagem_url` AS `imagem_url`, `oc__tb_servico`.`id_categoria` AS `id_categoria`, `oc__tb_servico`.`ativo` AS `ativo`, `oc__tb_servico`.`data_cadastro` AS `data_cadastro`, `oc__tb_usuario`.`nome_usuario` AS `nome_usuario`, `oc__tb_usuario`.`email` AS `email`, `oc__tb_usuario`.`telefone` AS `telefone`, cast(coalesce(avg((`oc__tb_avaliacao`.`nota_preco` + `oc__tb_avaliacao`.`nota_tempo_execucao` + `oc__tb_avaliacao`.`nota_higiene` + `oc__tb_avaliacao`.`nota_educacao`) / 4),0) as decimal(10,2)) AS `nota_media`, count(`oc__tb_avaliacao`.`id`) AS `total_avaliacoes` FROM ((`oc__tb_servico` join `oc__tb_usuario` on(`oc__tb_servico`.`id_usuario` = `oc__tb_usuario`.`id`)) left join `oc__tb_avaliacao` on(`oc__tb_servico`.`id` = `oc__tb_avaliacao`.`id_servico`)) GROUP BY `oc__tb_servico`.`id` ;
 
 -- --------------------------------------------------------
@@ -207,70 +288,8 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `oc__vw_servicos_ativos`;
 
+DROP VIEW IF EXISTS `oc__vw_servicos_ativos`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `oc__vw_servicos_ativos`  AS SELECT `oc__tb_servico`.`id` AS `id`, `oc__tb_servico`.`id_usuario` AS `id_usuario`, `oc__tb_servico`.`titulo` AS `titulo`, `oc__tb_servico`.`desc_servico` AS `desc_servico`, `oc__tb_servico`.`imagem_url` AS `imagem_url`, `oc__tb_servico`.`id_categoria` AS `id_categoria`, `oc__tb_servico`.`ativo` AS `ativo`, `oc__tb_servico`.`data_cadastro` AS `data_cadastro`, `oc__tb_usuario`.`nome_usuario` AS `nome_usuario`, `oc__tb_usuario`.`email` AS `email`, cast(coalesce(avg((`oc__tb_avaliacao`.`nota_preco` + `oc__tb_avaliacao`.`nota_tempo_execucao` + `oc__tb_avaliacao`.`nota_higiene` + `oc__tb_avaliacao`.`nota_educacao`) / 4),0) as decimal(10,2)) AS `nota_media`, count(`oc__tb_avaliacao`.`id`) AS `total_avaliacoes` FROM ((`oc__tb_servico` join `oc__tb_usuario` on(`oc__tb_servico`.`id_usuario` = `oc__tb_usuario`.`id`)) left join `oc__tb_avaliacao` on(`oc__tb_servico`.`id` = `oc__tb_avaliacao`.`id_servico`)) WHERE `oc__tb_servico`.`ativo` = 1 GROUP BY `oc__tb_servico`.`id` ORDER BY `oc__tb_servico`.`data_cadastro` DESC ;
-
---
--- Índices para tabelas despejadas
---
-
---
--- Índices de tabela `oc__tb_avaliacao`
---
-ALTER TABLE `oc__tb_avaliacao`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_usuario` (`id_usuario`),
-  ADD KEY `id_servico` (`id_servico`);
-
---
--- Índices de tabela `oc__tb_categoria`
---
-ALTER TABLE `oc__tb_categoria`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `nome_categoria` (`nome_categoria`);
-
---
--- Índices de tabela `oc__tb_servico`
---
-ALTER TABLE `oc__tb_servico`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_usuario` (`id_usuario`),
-  ADD KEY `id_categoria` (`id_categoria`);
-
---
--- Índices de tabela `oc__tb_usuario`
---
-ALTER TABLE `oc__tb_usuario`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `login` (`login`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- AUTO_INCREMENT para tabelas despejadas
---
-
---
--- AUTO_INCREMENT de tabela `oc__tb_avaliacao`
---
-ALTER TABLE `oc__tb_avaliacao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT de tabela `oc__tb_categoria`
---
-ALTER TABLE `oc__tb_categoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- AUTO_INCREMENT de tabela `oc__tb_servico`
---
-ALTER TABLE `oc__tb_servico`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de tabela `oc__tb_usuario`
---
-ALTER TABLE `oc__tb_usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restrições para tabelas despejadas
