@@ -84,39 +84,66 @@
 
             <!-- FIM UML -->
 
+            <!-- FLUXOGRAMA -->
             <div class="col-md-4">
                 <div class="card h-100 text-center p-4">
                     <div class="icon-box"><i class="bi bi-arrow-repeat"></i></div>
                     <div class="card-body">
                         <h5 class="card-title">Fluxogramas</h5>
                         <p class="card-text text-muted">Mapeamento das 3 principais funcionalidades do projeto.</p>
-                        <a href="#" class="btn btn-outline-primary stretched-link">Ver Fluxos</a>
+                        <a href="https://www.figma.com/board/ki2SbXMcKDtrCWlqcOAL6l/Fluxograma-ObraConnect?t=oWvalPyVI7EQWkO3-1"
+                            class="btn btn-outline-primary stretched-link" target="_blank">Ver Fluxos</a>
                     </div>
                 </div>
             </div>
 
+
+
+
+            <!-- FIM FLUXOGRAMA -->
+            <!-- WIREFRAME -->
             <div class="col-md-4">
                 <div class="card h-100 text-center p-4">
                     <div class="icon-box"><i class="bi bi-layout-sidebar-inset"></i></div>
                     <div class="card-body">
                         <h5 class="card-title">Wireframe</h5>
                         <p class="card-text text-muted">Esboços de interface e experiência do usuário (UX/UI).</p>
-                        <a href="#" class="btn btn-outline-primary stretched-link">Abrir Protótipo</a>
+                        <a href="https://www.figma.com/design/3wH3wbCX0Av0o5Kj6WcEw6/ObraConnect-v2?t=yYNr5BArYTdL1EY4-1"
+                            class="btn btn-outline-primary stretched-link" target="_blank">Abrir Protótipo</a>
                     </div>
                 </div>
             </div>
 
+            <!-- DER -->
             <div class="col-md-4">
                 <div class="card h-100 text-center p-4">
                     <div class="icon-box"><i class="bi bi-database"></i></div>
                     <div class="card-body">
                         <h5 class="card-title">DER</h5>
                         <p class="card-text text-muted">Diagrama Entidade Relacionamento e modelagem de dados.</p>
-                        <a href="#" class="btn btn-outline-primary stretched-link">Ver Banco</a>
+                        <a href="#" class="btn btn-outline-primary stretched-link" data-bs-toggle="modal"
+                            data-bs-target="#modalDER">Visualizar DER</a>
                     </div>
                 </div>
             </div>
 
+            <div class="modal fade" id="modalDER" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Diagrama UML</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img src="_documentos/DER.png" class="img-fluid rounded" alt="Diagrama UML">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- FIM DER -->
             <div class="col-md-4">
                 <div class="card h-100 text-center p-4">
                     <div class="icon-box"><i class="bi bi-github"></i></div>
