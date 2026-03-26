@@ -179,25 +179,31 @@ function criarLinhaServicoTabela(servico) {
 
   const fallbackHTML = `<div style="width: 50px; height: 50px; display: ${imagemUrl ? "none" : "flex"}; align-items: center; justify-content: center; background: linear-gradient(135deg, #0B213E 0%, #1a3a6e 100%); color: white; border-radius: 4px; font-size: 1.2rem;"><i class="bi bi-building"></i></div>`;
 
+  const acaoBotao = servico.ativo
+    ? `<button class="btn btn-sm btn-danger" onclick="alternarStatusServico(${servico.id}, false)">
+      <i class="bi bi-slash-circle"></i> Desativar
+     </button>`
+    : `<button class="btn btn-sm btn-success" onclick="alternarStatusServico(${servico.id}, true)">
+      <i class="bi bi-check-circle"></i> Reativar
+     </button>`;
+
   tr.innerHTML = `
-    <td>
-      <div style="display: flex; align-items: center; gap: 8px;">
-        ${imagemHTML}
-        ${fallbackHTML}
-      </div>
-    </td>
-    <td><strong>${servico.titulo}</strong></td>
-    <td>${servico.desc_servico.substring(0, 50)}...</td>
-    <td>${servico.ativo ? '<span class="badge bg-success">Ativo</span>' : '<span class="badge bg-secondary">Inativo</span>'}</td>
-    <td>
-      <button class="btn btn-sm btn-warning" onclick="abrirEditarServico(${servico.id})">
-        <i class="bi bi-pencil"></i> Editar
-      </button>
-      <button class="btn btn-sm btn-danger" onclick="deletarServicoConfirm(${servico.id})">
-        <i class="bi bi-trash"></i> Deletar
-      </button>
-    </td>
-  `;
+  <td>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      ${imagemHTML}
+      ${fallbackHTML}
+    </div>
+  </td>
+  <td><strong>${servico.titulo}</strong></td>
+  <td>${servico.desc_servico.substring(0, 50)}...</td>
+  <td>${servico.ativo ? '<span class="badge bg-success">Ativo</span>' : '<span class="badge bg-secondary">Inativo</span>'}</td>
+  <td>
+    <button class="btn btn-sm btn-warning" onclick="abrirEditarServico(${servico.id})">
+      <i class="bi bi-pencil"></i> Editar
+    </button>
+    ${acaoBotao}
+  </td>
+`;
 
   return tr;
 }
@@ -280,7 +286,7 @@ function abrirEditarServico(id) {
  */
 async function deletarServicoConfirm(id) {
   if (
-    confirm(
+    await mostrarConfirmacao(
       "Tem certeza que deseja desativar este serviço? Você poderá reativá-lo depois.",
     )
   ) {
@@ -299,6 +305,37 @@ async function deletarServicoConfirm(id) {
     } catch (erro) {
       console.error("Erro ao desativar:", erro);
       mostrarAviso("Erro ao desativar serviço", "danger");
+    }
+  }
+}
+
+async function alternarStatusServico(id, ativar) {
+  const acao = ativar ? "reativar" : "desativar";
+
+  if (
+    await mostrarConfirmacao(`Tem certeza que deseja ${acao} este serviço?`)
+  ) {
+    try {
+      // Agora chamamos as funções que já estão prontas no seu api.js
+      const resultado = ativar
+        ? await reativarServico(id)
+        : await desativarServico(id);
+
+      if (!resultado.sucesso) {
+        mostrarAviso(`Erro ao ${acao}: ${resultado.erro}`, "danger");
+        return;
+      }
+
+      mostrarAviso(
+        `Serviço ${ativar ? "reativado" : "desativado"} com sucesso!`,
+        "success",
+      );
+
+      // Recarrega a tabela de serviços para atualizar o badge e o botão
+      carregarMeusServicos();
+    } catch (erro) {
+      console.error(`Erro ao ${acao}:`, erro);
+      mostrarAviso("Erro ao processar a solicitação", "danger");
     }
   }
 }

@@ -222,6 +222,10 @@ async function desativarServico(id) {
   return fazerRequisicao(`/servicos/${id}/desativar`, "PATCH");
 }
 
+async function reativarServico(id) {
+  return fazerRequisicao(`/servicos/${id}/ativar`, "PATCH");
+}
+
 // ============================================
 // FUNÇÕES DE AVALIAÇÕES
 // ============================================

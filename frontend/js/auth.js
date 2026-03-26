@@ -284,3 +284,53 @@ function mostrarAviso(mensagem, tipo = "info") {
     modal.remove();
   });
 }
+
+function mostrarConfirmacao(mensagem) {
+  return new Promise((resolve) => {
+    const modalId = "modal-confirm-" + Date.now();
+    const modal = document.createElement("div");
+    modal.id = modalId;
+    modal.className = "modal fade";
+    modal.tabIndex = "-1";
+    modal.setAttribute("aria-hidden", "true");
+    modal.setAttribute("data-bs-backdrop", "static"); // Impede fechar clicando fora
+
+    modal.innerHTML = `
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header bg-azul-marinho text-white">
+            <h5 class="modal-title">
+              <i class="bi bi-question-circle"></i> Confirmação
+            </h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ${mensagem}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" id="btn-cancelar-${modalId}" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-laranja" id="btn-confirmar-${modalId}">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+    const bsModal = new bootstrap.Modal(modal);
+    bsModal.show();
+
+    // Evento para o botão Confirmar
+    document
+      .getElementById(`btn-confirmar-${modalId}`)
+      .addEventListener("click", () => {
+        bsModal.hide();
+        resolve(true);
+      });
+
+    // Evento para o botão Cancelar ou fechar o modal
+    modal.addEventListener("hidden.bs.modal", () => {
+      modal.remove();
+      resolve(false);
+    });
+  });
+}

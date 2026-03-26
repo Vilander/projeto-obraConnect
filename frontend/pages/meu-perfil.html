@@ -173,6 +173,7 @@
   <script src="../js/auth.js"></script>
   <script src="../js/servicos.js"></script>
 
+
   <script>
     document.addEventListener("DOMContentLoaded", async function () {
       inicializarAutenticacao();
@@ -277,11 +278,35 @@
     }
 
     async function deletarAvaliacaoConfirm(id) {
-      if (confirm("Tem certeza que deseja deletar esta avaliação?")) {
+      if (await mostrarConfirmacao("Tem certeza que deseja deletar esta avaliação?")) {
         const resultado = await deletarAvaliacao(id);
         if (resultado.sucesso) {
           mostrarAviso("Avaliação deletada com sucesso!", "success");
           carregarMinhasAvaliacoes();
+        }
+      }
+    }
+
+    async function alternarStatusServico(id, ativar) {
+      const acao = ativar ? "reativar" : "desativar";
+
+      if (await mostrarConfirmacao(`Tem certeza que deseja ${acao} este serviço?`)) {
+        try {
+          // Chama a API correspondente (verifique se reativarServico existe no seu api.js ou servicos.js)
+          const resultado = ativar ? await reativarServico(id) : await desativarServico(id);
+
+          if (!resultado.sucesso) {
+            mostrarAviso(`Erro ao ${acao}: ${resultado.erro}`, "danger");
+            return;
+          }
+
+          mostrarAviso(`Serviço ${ativar ? "reativado" : "desativado"} com sucesso!`, "success");
+
+          // Recarrega a tabela para atualizar os botões e o status na tela
+          carregarMeusServicos();
+        } catch (erro) {
+          console.error(`Erro ao ${acao}:`, erro);
+          mostrarAviso("Erro ao processar a solicitação", "danger");
         }
       }
     }

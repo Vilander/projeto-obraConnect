@@ -222,6 +222,43 @@ router.patch("/:id/desativar", verificarToken, async (req, res) => {
 });
 
 // ===============================================
+// 6.1. REATIVAR SERVIÇO (PROTEGIDO)
+// ===============================================
+router.patch("/:id/ativar", verificarToken, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Verificar se o serviço existe
+    const [servicos] = await banco.query(
+      "SELECT * FROM oc__tb_servico WHERE id = ?",
+      [id],
+    );
+
+    if (servicos.length === 0) {
+      return res.status(404).json({ erro: "Serviço não encontrado." });
+    }
+
+    // Verificar se o usuário logado é o dono do serviço
+    if (servicos[0].id_usuario !== req.usuario.id) {
+      return res
+        .status(403)
+        .json({ erro: "Você não tem permissão para reativar este serviço." });
+    }
+
+    // Reativar serviço (mudar status para 1)
+    await banco.query("UPDATE oc__tb_servico SET ativo = 1 WHERE id = ?", [id]);
+
+    res.status(200).json({
+      mensagem: "Serviço reativado com sucesso!",
+      id_servico: id,
+    });
+  } catch (erro) {
+    console.error("Erro ao reativar serviço:", erro);
+    res.status(500).json({ erro: "Erro ao reativar serviço." });
+  }
+});
+
+// ===============================================
 // 7. DELETAR SERVIÇO (PROTEGIDO)
 // ===============================================
 router.delete("/:id", verificarToken, async (req, res) => {
