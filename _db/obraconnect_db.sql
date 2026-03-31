@@ -3,19 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 25/03/2026 às 00:10
+-- Tempo de geração: 31/03/2026 às 02:25
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Banco de dados: `obraconnect_db`
@@ -43,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `oc__tb_avaliacao` (
   PRIMARY KEY (`id`),
   KEY `id_usuario` (`id_usuario`),
   KEY `id_servico` (`id_servico`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `oc__tb_avaliacao`
@@ -51,7 +45,8 @@ CREATE TABLE IF NOT EXISTS `oc__tb_avaliacao` (
 
 INSERT INTO `oc__tb_avaliacao` (`id`, `id_servico`, `id_usuario`, `nota_preco`, `nota_tempo_execucao`, `nota_higiene`, `nota_educacao`, `comentario`, `data_avaliacao`) VALUES
 (1, 1, 1, 5, 4, 5, 5, 'Excelente profissional, muito educado!', '2026-01-22 19:08:35'),
-(2, 2, 1, 5, 4, 3, 4, 'Teste de avaliação', '2026-01-25 14:18:21');
+(2, 2, 1, 5, 4, 3, 4, 'Teste de avaliação', '2026-01-25 14:18:21'),
+(4, 7, 1, 4, 5, 5, 5, 'fafafafafafa', '2026-03-31 00:10:49');
 
 -- --------------------------------------------------------
 
@@ -122,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `oc__tb_servico` (
   PRIMARY KEY (`id`),
   KEY `id_usuario` (`id_usuario`),
   KEY `id_categoria` (`id_categoria`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `oc__tb_servico`
@@ -131,8 +126,9 @@ CREATE TABLE IF NOT EXISTS `oc__tb_servico` (
 INSERT INTO `oc__tb_servico` (`id`, `id_usuario`, `titulo`, `desc_servico`, `imagem_url`, `id_categoria`, `ativo`, `data_cadastro`) VALUES
 (1, 1, 'Reforma Total - Promoção', 'Agora com pintura inclusa e acabamento de qualidade', 'http://localhost:3001/uploads/placeholder-1.jpg', 10, 0, '2026-01-20 20:23:51'),
 (2, 1, 'Serviço com Pintura', 'Pintura de qualidade superior com acabamento profissional', 'http://localhost:3001/uploads/placeholder-2.jpg', 26, 0, '2026-01-20 22:36:13'),
-(3, 1, 'Consultoria de Projeto', 'Consultoria em projetos arquitetônicos e técnicos', 'http://localhost:3001/uploads/placeholder-3.jpg', 1, 0, '2026-01-25 14:33:27'),
-(6, 1, 'TESTE2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum', 'http://localhost:3001/uploads/imagem-1773795221254-89120496.png', 3, 1, '2026-03-18 00:53:41');
+(3, 1, 'Consultoria de Projeto', 'Consultoria em projetos arquitetônicos e técnicos', 'http://localhost:3001/uploads/placeholder-3.jpg', 1, 1, '2026-01-25 14:33:27'),
+(6, 1, 'TESTE2', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum', 'http://localhost:3001/uploads/imagem-1773795221254-89120496.png', 3, 0, '2026-03-18 00:53:41'),
+(7, 2, 'Jose Construções', 'Serviço de construção em geral', 'http://localhost:3001/uploads/imagem-1774912852963-395474574.png', 25, 1, '2026-03-30 23:20:52');
 
 -- --------------------------------------------------------
 
@@ -160,10 +156,10 @@ CREATE TABLE IF NOT EXISTS `oc__tb_usuario` (
 --
 
 INSERT INTO `oc__tb_usuario` (`id`, `login`, `senha`, `nome_usuario`, `email`, `telefone`, `tipo_usuario`, `data_cadastro`) VALUES
-(1, 'admin', '$2b$10$tN8el4BhPZfAYtQSg/8XsOpOXSsmWT77fW2I0MK2BmX7yQ2VRW2Xe', 'Administrador', 'vilander.costa@gmail.com', '19993223509', 'admin', '2026-01-20 18:13:57'),
-(2, 'jose', '$2b$10$f3uw0JbWIxIY3yP95/xUI.wncxJ/vgC0P/Ln/JotUHyvuR0Swlhna', 'José Silva', 'jose@email.com', '11999999999', 'usuario', '2026-01-22 19:39:12'),
-(3, 'aline', '$2b$10$dOIh00LEeBu5lT38sm9Rueeo5nToldA1ppU9YNUcyKh.bJWobiTci', 'Aline Costa', 'aline@teste.com', '11988888888', 'usuario', '2026-01-25 14:28:43'),
-(4, 'jose-antonio', '$2b$10$GyByPscflcANbpeOVSJr7ejBoGntNiCp6joyZFNNyZS1lmBIXwTEK', 'José Antonio', 'jose.antonio@teste.com', '11987654321', 'prestador', '2026-01-25 15:35:18');
+(1, 'admin', '$2b$10$tN8el4BhPZfAYtQSg/8XsOpOXSsmWT77fW2I0MK2BmX7yQ2VRW2Xe', 'Administrador', 'vilander.costa@gmail.com', '19990000000', 'admin', '2026-01-20 18:13:57'),
+(2, 'jose', '$2a$12$GKLsLUU4FTFNIQ.uU3750OkSf1cEcnvC8rZTKY/lNLGw9I4NTFd7K', 'José Silva', 'jose@email.com', '11999999999', 'prestador', '2026-01-22 19:39:12'),
+(3, 'aline', '$2a$12$GKLsLUU4FTFNIQ.uU3750OkSf1cEcnvC8rZTKY/lNLGw9I4NTFd7K', 'Aline Costa', 'aline@teste.com', '11988888888', 'usuario', '2026-01-25 14:28:43'),
+(4, 'jose-antonio', '$2a$12$GKLsLUU4FTFNIQ.uU3750OkSf1cEcnvC8rZTKY/lNLGw9I4NTFd7K', 'José Antonio', 'jose.antonio@teste.com', '11987654321', 'prestador', '2026-01-25 15:35:18');
 
 -- --------------------------------------------------------
 
@@ -309,7 +305,3 @@ ALTER TABLE `oc__tb_servico`
   ADD CONSTRAINT `oc__tb_servico_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `oc__tb_usuario` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `oc__tb_servico_ibfk_2` FOREIGN KEY (`id_categoria`) REFERENCES `oc__tb_categoria` (`id`) ON DELETE SET NULL;
 COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

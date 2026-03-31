@@ -453,3 +453,39 @@ footer a:hover {
      margin-top: 4rem;
      margin-bottom: 4rem;
 }
+
+.login-container {
+     min-height: 100vh;
+     display: flex;
+     align-items: center;
+     background: linear-gradient(135deg,
+               var(--azul-marinho) 0%,
+               #0d2a5e 100%);
+}
+
+.login-card {
+     max-width: 400px;
+     width: 100%;
+     margin: auto;
+     border-radius: 12px;
+     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.login-header {
+     background-color: var(--azul-marinho);
+     color: var(--branco);
+     padding: 2rem 0;
+     text-align: center;
+     border-radius: 12px 12px 0 0;
+}
+
+.login-header i {
+     font-size: 3rem;
+     margin-bottom: 1rem;
+     color: var(--laranja-principal);
+}
+
+.login-header h2 {
+     font-weight: 700;
+     margin-bottom: 0.5rem;
+}

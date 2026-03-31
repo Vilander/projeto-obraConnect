@@ -114,15 +114,28 @@ async function realizarRegistro(nome, email, senha, login, telefone) {
 /**
  * Fazer logout
  */
+// function realizarLogout() {
+//   localStorage.removeItem("token");
+//   localStorage.removeItem("usuario");
+//   usuarioLogado = null;
+//   tokenAtual = null;
+//   atualizarUIAutenticacao();
+
+//   // Redirecionar para página inicial
+//   window.location.href = "./index.html";
+// }
+
 function realizarLogout() {
   localStorage.removeItem("token");
   localStorage.removeItem("usuario");
   usuarioLogado = null;
   tokenAtual = null;
-  atualizarUIAutenticacao();
 
-  // Redirecionar para página inicial
-  window.location.href = "../index.html";
+  if (typeof atualizarUIAutenticacao === "function") {
+    atualizarUIAutenticacao();
+  }
+
+  window.location.href = "/frontend/index.html";
 }
 
 /**

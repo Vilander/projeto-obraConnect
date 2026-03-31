@@ -29,6 +29,13 @@ app.use(
 
 // Body Parser - Entender JSON
 app.use(express.json());
+
+//Debug para ver todas as requisições:
+// app.use((req, res, next) => {
+//   console.log(`Requisição recebida: ${req.method} ${req.url}`);
+//   next();
+// });
+
 app.use(express.urlencoded({ extended: true }));
 
 // Servir arquivos estáticos (imagens)

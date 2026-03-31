@@ -16,7 +16,7 @@ const router = express.Router();
 
 // ✅ FUNÇÃO HELPER - Gerar Token JWT
 function gerarToken(usuario) {
-  console.log("Minha chave secreta é:", process.env.JWT_SECRET);
+  // console.log("Minha chave secreta é:", process.env.JWT_SECRET);
   return jwt.sign(
     {
       id: usuario.id,
