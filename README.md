@@ -116,12 +116,14 @@ projeto-obraConnect/
 ## Segurança e Criptografia
 
 **Bcrypt** - Criptografia de Senhas
+
 - Algoritmo: bcrypt com salt rounds = 10
 - Função: `bcryptjs` criptografa senhas antes de salvar no banco
 - Verificação: Ao fazer login, a senha inserida é comparada com o hash armazenado
 - Vantagem: Impede que senhas sejam recuperadas mesmo com acesso ao banco de dados
 
 **JWT** - Autenticação de Sessão
+
 - Algoritmo: HS256 (HMAC SHA-256)
 - Token gerado com: ID do usuário, nome, email, tipo de usuário
 - Validade: 7 dias (configurável)
