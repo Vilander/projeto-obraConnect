@@ -49,6 +49,18 @@
         border-bottom-left-radius: 50px;
         border-bottom-right-radius: 50px;
       }
+      #info {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        color: white;
+        font-size: 1.5rem;
+        text-decoration: none;
+      }
+      #info img {
+        width: 30px;
+        height: 30px;
+      }
     </style>
   </head>
 
@@ -57,6 +69,88 @@
       <div class="container">
         <h1 class="display-4 fw-bold">ObraConnect</h1>
         <p class="lead">Portal de documentação e etapas do projeto</p>
+      </div>
+      <a href="#" id="info" data-bs-toggle="modal" data-bs-target="#modalInfo"
+        ><img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACOElEQVR4nO2ay04UQRRAe8djg5jAAK70ayA4BrcI/8BEFL8B2ZCYaFjyCWMIqH9AMCwZ5+FOFgRcS4Qcc+NdTNqi7cft6q4JJ+lk0tNza0666nbVrY6ie0YU4CGwAuwAB0AH+Alc6yGfz/S7t3rtdFQHgHFgHfgC3JKdG+ATsCaxogoEJoBN4Bw7JNZLie1L4inwnfIYAMtld6Nd/LEPTFpLzAOn+OcEmLOSeKK3uyr68h+KSswCXapnkPvOaGaqojvdxddcKRrYoxjyEHwNLOixpeeK8D5Pii3KliOuyBRlKUuXshjc847Yc0aDfzyNyCtsWHDEfmQUu5XmoWc17XB1rTdGsX8k3hWdAFpxrWPCcrAP8yJJRGaxoXCUtJ6QaXUo3AAPXCLPCY9nLhFZ2YXGtktElqAmJIxBa9quRroBinRcjVxZt+JB5MIlYpnjfYn8GmmRq1HpWt0ARTqlpl+PIm0vD0QPItsuEanFhibSdIlMW08aSxb5DUz9I6INfQ5I5NApoQ1JVTwUkdUkkTFdRtZd5Py/BQgt7dddZCNRwqoclKKNIvRSVxxlf6LGIoupJIYa+0D9eJdJYqjGJfsTdeFYklFmEZWZAb5VbcDfMmkjl0Rso6dfscTjQhKx4rPsT1TRnRomErGHpe/N0AlTiZjQUsldrZc5xRaQkYzWspzOaKyNqt6AGNOJ5lHOJYD85lAq67lTqzVSUJZarKzagI/6As3l0Es1l3qurdc071xP3BOFzx+zEDxHsWn+CgAAAABJRU5ErkJggg=="
+          alt="info"
+      /></a>
+
+      <!-- modal info -->
+      <div
+        class="modal fade text-dark"
+        id="modalInfo"
+        tabindex="-1"
+        aria-labelledby="tituloModal"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header bg-primary">
+              <h5 class="modal-title" id="tituloModal" style="color: #f8f9fa">
+                Sobre o ObraConnect
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div
+              class="modal-body text-start"
+              style="color: #212529 !important"
+            >
+              <h6 class="fw-bold">O que é?</h6>
+              <p>
+                Um marketplace para conectar profissionais de construção e
+                reformas com clientes.
+              </p>
+
+              <hr />
+
+              <h6 class="fw-bold">Tecnologias (Stack)</h6>
+              <ul>
+                <li>
+                  <strong>Backend:</strong> Node.js, Express e MySQL(mariaDB).
+                </li>
+                <li>
+                  <strong>Frontend:</strong> HTML5,CSS, Bootstrap e JavaScript
+                  Vanilla.
+                </li>
+                <li>
+                  <strong>Segurança:</strong> JWT para sessões e Bcrypt para
+                  senhas.
+                </li>
+              </ul>
+
+              <hr />
+
+              <h6 class="fw-bold">Funcionalidades</h6>
+              <ul>
+                <li>
+                  Registro e login com níveis de acesso (cliente, prestador,
+                  admin).
+                </li>
+                <li>Cadastro e gestão de serviços com upload de imagens.</li>
+                <li>
+                  Sistema de avaliações (preço, tempo, higiene e educação).
+                </li>
+              </ul>
+            </div>
+
+            <div class="modal-footer bg-light">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Fechar
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -86,13 +180,13 @@
           class="modal fade"
           id="modalUML"
           tabindex="-1"
-          aria-labelledby="exampleModalLabel"
+          aria-labelledby="tituloModal"
           aria-hidden="true"
         >
           <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Diagrama UML</h5>
+                <h5 class="modal-title" id="tituloModal">Diagrama UML</h5>
                 <button
                   type="button"
                   class="btn-close"
@@ -102,7 +196,7 @@
               </div>
               <div class="modal-body text-center">
                 <img
-                  src="_documentos/UML.png"
+                  src="_documentos/UML.svg"
                   class="img-fluid rounded"
                   alt="Diagrama UML"
                 />
@@ -187,13 +281,13 @@
           class="modal fade"
           id="modalDER"
           tabindex="-1"
-          aria-labelledby="exampleModalLabel"
+          aria-labelledby="tituloModal"
           aria-hidden="true"
         >
-          <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-dialog modal-xl modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Diagrama UML</h5>
+                <h5 class="modal-title" id="tituloModal">Diagrama UML</h5>
                 <button
                   type="button"
                   class="btn-close"
@@ -203,9 +297,9 @@
               </div>
               <div class="modal-body text-center">
                 <img
-                  src="_documentos/DER.png"
-                  class="img-fluid rounded"
-                  alt="Diagrama UML"
+                  src="_documentos/DER2.png"
+                  alt="Diagrama de Banco de Dados"
+                  style="width: 100%"
                 />
               </div>
               <div class="modal-footer">
