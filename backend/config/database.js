@@ -6,13 +6,13 @@
 require("dotenv").config();
 const mysql = require("mysql2/promise");
 
-// Criar pool de conexões 
+// Criar pool de conexões
 const pool = mysql.createPool({
   host: process.env.DB_HOST || "localhost",
   user: process.env.DB_USER || "root",
   password: process.env.DB_PASSWORD || "",
   database: process.env.DB_NAME || "obraconnect_db",
-  port: process.env.DB_PORT || 3306,
+  port: process.env.DB_PORT || 3307,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,

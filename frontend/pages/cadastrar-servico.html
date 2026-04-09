@@ -12,7 +12,6 @@
 </head>
 
 <body>
-  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="../index.html">
@@ -38,7 +37,6 @@
 
   <div id="aviso-container"></div>
 
-  <!-- MAIN CONTENT -->
   <main class="container my-section">
     <div class="row justify-content-center">
       <div class="col-lg-8">
@@ -79,17 +77,7 @@
                     <i class="bi bi-tag"></i> Categoria
                   </label>
                   <select class="form-select" id="categoria">
-                    <option value="">Selecione una categoria (opcional)</option>
-                    <option value="1">Arquiteto(a)</option>
-                    <option value="2">Armador(a) de Ferragens</option>
-                    <option value="3">Azulejista / Pisagista</option>
-                    <option value="4">Bombeiro(a) Hidráulico</option>
-                    <option value="6">Carpinteiro(a)</option>
-                    <option value="9">Eletricista</option>
-                    <option value="10">Engenheiro(a) Civil</option>
-                    <option value="25">Pedreiro(a)</option>
-                    <option value="26">Pintor(a)</option>
-                    <option value="27">Serralheiro(a)</option>
+                    <option value="">Carregando categorias...</option>
                   </select>
                 </div>
 
@@ -138,7 +126,6 @@
     </div>
   </main>
 
-  <!-- FOOTER -->
   <footer>
     <div class="container">
       <div class="footer-bottom">
@@ -156,6 +143,9 @@
 
     document.addEventListener("DOMContentLoaded", async function () {
       inicializarAutenticacao();
+
+      // Carregar categorias dinamicamente
+      await carregarCategorias();
 
       // Exigir autenticação
       if (!exigirAutenticacao()) return;
@@ -263,6 +253,32 @@
           }
         });
     });
+
+    // Função para carregar categorias dinamicamente
+    async function carregarCategorias() {
+      try {
+        const resposta = await fetch(`${API_BASE_URL}/servicos/categorias`);
+        if (!resposta.ok) {
+          throw new Error("Erro ao carregar categorias");
+        }
+        const categorias = await resposta.json();
+
+        const selectCategoria = document.getElementById("categoria");
+        // Limpar opções existentes exceto a primeira
+        selectCategoria.innerHTML = '<option value="">Selecione uma categoria (opcional)</option>';
+
+        // Adicionar categorias dinamicamente
+        categorias.forEach(categoria => {
+          const option = document.createElement("option");
+          option.value = categoria.id;
+          option.textContent = categoria.nome_categoria;
+          selectCategoria.appendChild(option);
+        });
+      } catch (erro) {
+        console.error("Erro ao carregar categorias:", erro);
+        mostrarAviso("Erro ao carregar categorias. Tente recarregar a página.", "danger");
+      }
+    }
   </script>
 </body>
 
