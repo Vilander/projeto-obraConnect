@@ -1,8 +1,9 @@
 /**
  * Rotas de Serviços
  * - GET / - Listar todos os serviços (público)
- * - GET /:id - Detalhes de um serviço
  * - GET /meus/servicos - Listar meus serviços (protegido)
+ * - GET /categorias - Listar categorias (público)
+ * - GET /:id - Detalhes de um serviço
  * - POST / - Criar serviço (protegido)
  * - PUT /:id - Editar serviço (protegido)
  * - DELETE /:id - Deletar serviço (protegido)
@@ -53,6 +54,22 @@ router.get("/meus/servicos", verificarToken, async (req, res) => {
   } catch (erro) {
     console.error("Erro ao listar meus serviços:", erro);
     res.status(500).json({ erro: "Erro ao listar seus serviços." });
+  }
+});
+
+// ===============================================
+// 8. LISTAR CATEGORIAS (PÚBLICO) - DEVE VIR ANTES DE /:id
+// ===============================================
+router.get("/categorias", async (req, res) => {
+  try {
+    const [categorias] = await banco.query(
+      "SELECT id, nome_categoria FROM oc__tb_categoria ORDER BY nome_categoria",
+    );
+
+    res.status(200).json(categorias);
+  } catch (erro) {
+    console.error("Erro ao listar categorias:", erro);
+    res.status(500).json({ erro: "Erro ao listar categorias." });
   }
 });
 
